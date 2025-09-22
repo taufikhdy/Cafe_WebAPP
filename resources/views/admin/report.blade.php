@@ -1,12 +1,12 @@
 @extends('layouts.main')
 
-@section('title', 'ohayoy-dashboard')
+@section('title', 'ohayoy-report')
 
 @section('content')
 
-    <div class="content">
+        <div class="content">
         <div class="container-w1">
-          <h3 class="element-title">Dashboard</h3>
+          <h3 class="element-title">Laporan</h3>
           <div class="widget1">
             <div class="long-box">
               <h5 class="box-title">Penjualan Harian</h5>
@@ -48,36 +48,56 @@
                   <div class="text-medium">1m</div>
                 </div>
               </div>
+              <div class="box-s">
+                <h5 class="box-title">Meja Aktif</h5>
+                <div class="flex align-bottom gap10">
+                  <div class="text-large text-bold">13</div>
+                  <div class="text-medium">/ 15</div>
+                </div>
+              </div>
+              <div class="box-s">
+                <h5 class="box-title">Transaksi Masuk</h5>
+                <div class="flex align-bottom gap10">
+                  <div class="text-large text-bold">200</div>
+                  <!-- <div class="text-medium">/ 15</div> -->
+                </div>
+              </div>
+              <div class="box-s">
+                <h5 class="box-title">Sisa Waktu Kerja</h5>
+                <div class="flex align-bottom gap10">
+                  <div class="text-large text-bold">14j</div>
+                  <div class="text-medium">1m</div>
+                </div>
+              </div>
             </div>
-
-            <div class="element-title">
-                <h3>Orderan Pelanggan</h3>
-            </div>
-
-            <ul class="list overflow-y">
-              <li class="list-item">
-                <div class="name">Meja 8</div>
-                <div class="order">Order</div>
-              </li>
-              <li class="list-item">
-                <div class="name">Meja 8</div>
-                <div class="order">Order</div>
-              </li>
-              <li class="list-item">
-                <div class="name">Meja 8</div>
-                <div class="order">Order</div>
-              </li>
-              <li class="list-item">
-                <div class="name">Meja 8</div>
-                <div class="order">Order</div>
-              </li>
-            </ul>
           </div>
 
           <div class="">
+            <h3 class="element-title">Menu Terlaris</h3>
+            <ul class="list">
+              <li class="list-item">
+                <div class="name">Brew Coffe</div>
+                <div class="order">150 Terjual</div>
+              </li>
+              <li class="list-item">
+                <div class="name">TirramisuCake</div>
+                <div class="order">148 Terjual</div>
+              </li>
+              <li class="list-item">
+                <div class="name">Italian Chocolate</div>
+                <div class="order">140 Terjual</div>
+              </li>
+              <li class="list-item">
+                <div class="name">Kopi Hitam</div>
+                <div class="order">140 Terjual</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="container-w1">
             <h3 class="element-title">Diagram Pemasukan</h3>
             <canvas id="myLineChart"></canvas>
-          </div>
         </div>
       </div>
     </section>

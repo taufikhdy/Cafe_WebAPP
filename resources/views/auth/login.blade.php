@@ -6,35 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ohayo-Login</title>
-    <link rel="stylesheet" href="{{ asset('css/login.css?v3++') }}">
-    <link rel="stylesheet" href="{{ asset('remixicon/fonts/remixicon.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/login.css?v5++') }}">
+    <link rel="stylesheet" href="{{ asset('remixicon/fonts/remixicon.css') }}">
 </head>
 
 <body>
-    <div class="container">
-        <div class="title">
-            <div class="text">
-            <h1>Hello, <br> Welcome!</h1>
+    @guest
 
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. At distinctio, blanditiis voluptatem, quibusdam sapiente a nisi accusantium beatae dicta doloremque nam illo, expedita voluptas sed odit qui. Repudiandae, aliquam facilis.</p>
+        <div class="container">
+            <div class="title">
+                <div class="text">
+                    <h1>Ohayoy! <br> let's Login</h1>
+
+                    <br>
+
+                    <p>Welcome to ohayoy login page, lets login for manage your cafe now!</p>
+                </div>
+            </div>
+
+            <div class="form">
+                <form action="{{ route('authenticate') }}" method="POST">
+                    @csrf
+                    <div class="input">
+                        <input type="text" name="name" id="" placeholder="Username" autocomplete="off">
+                        @if (session('name'))
+                            <p>{{ session('name') }}</p>
+                        @endif
+                        <div class="password">
+                            <input type="password" name="password" id="password" placeholder="Password">
+                            <label class="show" id="show" for="password" onclick="showPassword()">
+                                <i class="ri-eye-off-line" id="eye"></i>
+                            </label>
+                        </div>
+                        @if (session('password'))
+                            <p>{{ session('password') }}</p>
+                        @endif
+                        <input type="submit" name="" id="" value="Login">
+                    </div>
+                </form>
             </div>
         </div>
+    @endguest
 
-        <div class="form">
-            <form action="">
-                <div class="input">
-                    <input type="text" name="" id="" placeholder="Username">
-                    <div class="password">
-                    <input type="password" name="" id="" placeholder="Password">
-                    <div class="show">
-                        <i class="ri-eye-line"></i>
-                    </div>
-                    </div>
-                    <input type="submit" name="" id="">
-                </div>
-            </form>
-        </div>
-    </div>
+    <script src="{{ asset('js/javascript.js') }}"></script>
 </body>
 
 </html>

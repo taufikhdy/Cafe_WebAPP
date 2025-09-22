@@ -6,25 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <meta name="scroll-restoration" content="manual"> --}}
-    <title>Document</title>
+    <title>@yield('title')</title>
 
-    <link rel="stylesheet" href="{{ asset('css/main.css?V5++') }}">
-    <link rel="stylesheet" href="{{ asset('css/other.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css?v11++') }}">
+    <link rel="stylesheet" href="{{ asset('css/card.css') }}">
+    <link rel="stylesheet" href="{{ asset('remixicon/fonts/remixicon.css?v2++' )}}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/other.css') }}"> --}}
 </head>
 
 <body>
 
 
     @include('components.navbar')
-    <div class="flex">
-        @include('components.sidebar')
 
-        <div class="content">
-            @yield('content')
-        </div>
+
+    <section class="flex">
+        @include('components.sidebar')
+        @yield('content')
+    </section>
 
     </div>
 
+    {{-- JAVASCRIPT --}}
+    <script src="{{asset('js/javascript.js?v3++')}}"></script>
+    <script src="{{asset('js/chart.umd.min.js')}}"></script>
 </body>
 
 </html>

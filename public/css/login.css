@@ -1,3 +1,51 @@
+:root {
+    --primary: hsl(218, 95%, 48%);
+    --secondary: hsl(46, 100%, 50%);
+    --bg-soft: hsl(200, 100%, 97%);
+
+    --neutral-100: hsl(0, 0%, 100%);
+    --neutral-90: hsl(0, 0%, 90%);
+    --neutral-80: hsl(0, 0%, 80%);
+    --neutral-70: hsl(0, 0%, 70%);
+    --neutral-60: hsl(0, 0%, 60%);
+    --neutral-50: hsl(0, 0%, 50%);
+    --neutral-40: hsl(0, 0%, 40%);
+    --neutral-30: hsl(0, 0%, 30%);
+    --neutral-20: hsl(0, 0%, 20%);
+    --neutral-10: hsl(0, 0%, 10%);
+
+    --body-regular: 16px;
+    --regular-height: 24px;
+
+    --body-small: 14px;
+    --small: 22px;
+
+    --body-large: 18px;
+    --large-height: 28px;
+
+    --caption: 12px;
+    --cp-height: 18px;
+
+    --h1: 36px;
+    --h1-height: 44px;
+
+    --h2: 30px;
+    --h2-height: 40px;
+
+    --h3: 24px;
+    --h3-height: 32px;
+
+    --h4: 20px;
+    --h4-height: 28px;
+
+    --h5: 18px;
+    --h5-height: 26px;
+
+    --h6: 16px;
+    --h6-height: 24px;
+}
+
+
 * {
     padding: 0;
     margin: 0;
@@ -15,10 +63,10 @@
     flex-basis: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     padding: 50px;
-    background-color: dodgerblue;
-    color: white;
+    background-color: var(--primary);
+    color: var(--neutral-100);
 }
 
 .title p {
@@ -35,7 +83,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--neutral-100);
 }
 
 .input {
@@ -55,7 +103,7 @@
 input {
     display: block;
     width: 100%;
-    border: 2px solid dodgerblue;
+    border: 2px solid var(--primary);
     /* border-radius: 10px; */
     outline: none;
     background: none;
@@ -67,14 +115,14 @@ input[type=submit] {
     padding: 15px 20px;
     color: white;
     font-weight: bold;
-    background-color: dodgerblue;
+    background-color: var(--primary);
     margin-top: 20px;
     cursor: pointer;
     border: none;
 }
 
 input:focus {
-    border-left: 25px solid dodgerblue;
+    border-left: 25px solid var(--primary);
 }
 
 .password {
@@ -86,26 +134,22 @@ input:focus {
     z-index: 99;
     top: 0;
     right: 0;
-    /* background-color: dodgerblue; */
+    /* background-color: var(--primary); */
     width: 50px;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: larger;
-    color: dodgerblue;
+    color: var(--primary);
 }
 
-@media screen and (min-width:320px) and (max-width: 412px){
+@media screen and (min-width:320px) and (max-width: 500px){
     .container {
         flex-direction: column;
     }
 
-    .container .title{
-        flex-basis: 70%;
-    }
-
     .input{
-        padding: 25px 40px;
+        padding: 0px 40px;
     }
 }

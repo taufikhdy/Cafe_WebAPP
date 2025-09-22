@@ -1,0 +1,33 @@
+.profile-content{
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.profile-title{
+    display: block;
+    padding: ;
+    margin-bottom: 15px;
+}
+
+.profile-card{
+    background-color: var(--neutral-100);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 0px hsla(0, 0%, 0%, 0.10);
+}
+
+.profile-info{
+    padding: 0px 0px 0px 20px;
+}
+
+.text-info{
+    display: block;
+    padding: 8px;
+}
+
+.foto{
+    width: 25%;
+    height: 100%;
+    background-color: var(--neutral-90);
+}
+
