@@ -32,24 +32,25 @@
 
 
             <div class="box">
-                    <div class="">
-                        <div class="profile-title">
-                            <h3>Tambah Pengguna</h3>
-                        </div>
-                    <form action="" method="post">
+                <div class="">
+                    <div class="profile-title">
+                        <h3>Tambah Pengguna</h3>
+                    </div>
+                    <form action="{{route('admin.tambahPengguna')}}" method="post">
                         @csrf
-                            <input type="text" name="name" id="" placeholder="Nama Pengguna">
+                        <input type="text" name="name" id="" placeholder="Nama Pengguna">
 
                         <div class="flex align-center gap15" style="margin: 10px 0px;">
-                            <input type="text" name="password" id="" placeholder="Password">
+                            <input type="text" name="password" id="" placeholder="Password" value="password123">
                             <select name="role_id" id="" class="btn-primary">
                                 <option value="">-- Role --</option>
                                 @foreach ($role as $role)
-                                <option value="{{ $role->id }}">{{ $role->nama_role }}</option>
+                                    <option value="{{ $role->id }}">{{ $role->nama_role }}</option>
                                 @endforeach
                             </select>
 
-                            <label for="foto" class="btn-primary text-small"><i class="ri-image-add-line text-medium text-white"></i> Foto</label>
+                            <label for="foto" class="btn-primary text-small"><i
+                                    class="ri-image-add-line text-medium text-white"></i> Foto</label>
                             <input type="file" name="foto" id="foto" class="file">
                         </div>
 
@@ -61,15 +62,30 @@
 
         <div class="container-w1">
             <div class="element-title">
-                <h3>Pengguna Online</h3>
+                <h3>Data Pengguna</h3>
             </div>
 
             <table>
-                <th>No</th>
-                <th>Nama Pengguna</th>
-                <th>Status</th>
-                <th>Role</th>
-                <th>Aksi</th>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Pengguna</th>
+                    <th>Role</th>
+                    <th>Aksi</th>
+                </tr>
+
+
+                @php
+                    $no = 1;
+                @endphp
+
+                @foreach ($user as $u)
+                    <tr>
+                        <td>{{$no++}}</td>
+                        <td>{{$u->name}}</td>
+                        <td>{{$u->role->nama_role}}</td>
+                        <td></td>
+                    </tr>
+                @endforeach
             </table>
         </div>
 

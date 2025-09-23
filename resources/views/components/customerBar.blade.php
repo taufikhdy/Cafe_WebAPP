@@ -6,6 +6,15 @@
         <div class="logo">
             <h3>Ohayoy</h3>
         </div>
+
+        @if(Auth::user()?->role->id === 3)
+
+        <div class="navigation">
+            <a href="{{route('customer.dashboard')}}" class="box-link {{ Request::is('customer/dashboard*') ? 'active' : '' }}">Beranda</a>
+            <a href="" class="box-link {{ Request::is('customer/Promo*') ? 'active' : '' }}">Rekomendasi</a>
+        </div>
+
+        @endif
     </div>
 
     <div class="text-right">

@@ -33,7 +33,7 @@
                             <p>{{ session('name') }}</p>
                         @endif
                         <div class="password">
-                            <input type="password" name="password" id="password" placeholder="Password">
+                            <input type="password" name="password" id="password" placeholder="Password" autocomplete="off">
                             <label class="show" id="show" for="password" onclick="showPassword()">
                                 <i class="ri-eye-off-line" id="eye"></i>
                             </label>

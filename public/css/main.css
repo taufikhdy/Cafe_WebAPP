@@ -27,6 +27,15 @@ a {
     text-decoration: none;
 }
 
+.box-link{
+    display: inline-block;
+    padding: 20px 10px;
+}
+
+.box-link.active{
+    border-bottom: 4px solid var(--primary);
+}
+
 .top-navbar {
     position: relative;
     z-index: 99;
@@ -34,10 +43,15 @@ a {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 15px 40px;
+    padding: 0px 40px;
     background-color: var(--neutral-100);
     border: 1px solid var(--neutral-90);
     /* box-shadow: 0px 0px 10px 0px hsla(0, 0%, 0%, 0.15); */
+}
+
+.top-navbar .logo{
+    padding: 20px 0px;
+    margin-right: 20px;
 }
 
 .trigger {
@@ -344,8 +358,8 @@ input[type='submit']:hover{
     border: 2px solid var(--primary);
     color: var(--neutral-100);
     padding: 10px;
-    border-radius: 8px;
-    padding: 8px;
+    border-radius: 4px;
+    padding: 5px;
     cursor: pointer;
     text-wrap: nowrap;
 }
@@ -354,10 +368,11 @@ input[type='submit']:hover{
     background-color: crimson;
     border: 1px solid crimson;
     color: var(--neutral-100);
-    border-radius: 8px;
-    padding: 8px;
+    border-radius: 4px;
+    padding: 5px;
     cursor: pointer;
     text-wrap: nowrap;
+    /* width: max-content; */
 }
 
 #myLineChart {
@@ -401,7 +416,7 @@ table {
 
 table th,
 table td {
-    padding: 10px;
+    padding: 5px;
 }
 
 table th {
@@ -413,6 +428,10 @@ table th {
 table td {
     color: var(--neutral-20);
     border: 1px solid var(--neutral-70);
+}
+
+table td img{
+    width: 100px;
 }
 
 

@@ -121,7 +121,7 @@ input[type=submit] {
     border: none;
 }
 
-input:focus {
+input:focus:not(input[type='submit']) {
     border-left: 25px solid var(--primary);
 }
 
@@ -142,6 +142,7 @@ input:focus {
     align-items: center;
     font-size: larger;
     color: var(--primary);
+    cursor: pointer;
 }
 
 @media screen and (min-width:320px) and (max-width: 500px){

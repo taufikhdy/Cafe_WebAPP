@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Models\Menu;
 use App\Models\Roles;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +66,7 @@ class AdminController extends Controller
     {
         $this->admin();
         $kategoris = Kategori::all();
-        $menus = Menu::orderBy('created_at', 'desc')->get();
+        $menus = Menu::latest()->get();
         return view('admin.menu', compact('kategoris', 'menus'));
     }
 
@@ -73,22 +74,34 @@ class AdminController extends Controller
     {
         $request->validate([
             'nama_menu' => 'required|string',
-            'harga' => 'required|numeric',
+            'harga' => 'required|integer',
             'deskripsi' => 'nullable|string',
             'stok' => 'nullable|integer',
-            'foto' => 'nullable|string',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'kategori_id' => 'required|exists:kategori,id'
         ]);
+
+        $pathFoto = null;
+        if($request->hasFile('gambar_menu'))
+        {
+            $pathFoto = $request->file('gambar_menu')->store('menu', 'public');
+        }
 
         Menu::create([
             'nama_menu' => $request->nama_menu,
             'harga' => $request->harga,
             'deskripsi' => $request->deskripsi,
             'stok' => $request->stok ?? 0,
-            'foto' => $request->foto,
+            'foto' => $pathFoto,
             'kategori_id' => $request->kategori_id,
         ]);
         return redirect()->route('admin.menu')->with('success', 'Menu baru berhasil ditambahkan!');
+    }
+
+    public function hapusMenu($id)
+    {
+        Menu::findOrFail($id)->delete();
+        return redirect()->route('admin.menu');
     }
 
 
@@ -99,6 +112,23 @@ class AdminController extends Controller
         $this->admin();
 
         $role = Roles::all();
-        return view('admin.pengguna', compact('role'));
+        $user = User::all();
+        return view('admin.pengguna', compact('role', 'user'));
+    }
+
+    public function tambahPengguna(Request $request)
+    {
+        $this->admin();
+
+        $request->validate([
+            'name' => 'string|required',
+            'password' => 'string|required',
+            'role_id' => 'required|exists:roles,id',
+            'foto' => 'string|nullable'
+        ]);
+
+        User::create($request->all());
+
+        return redirect()->route('admin.pengguna');
     }
 }

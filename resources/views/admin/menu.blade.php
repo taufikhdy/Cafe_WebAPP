@@ -45,7 +45,7 @@
                     <form action="{{ route('admin.tambahKategori') }}" method="post">
                         @csrf
                         <div class="flex align-center gap15">
-                            <input type="text" name="nama_kategori" id="" placeholder="Nama Kategori">
+                            <input type="text" name="nama_kategori" id="" placeholder="Nama Kategori" required>
                             <input type="submit" name="" id="" class="btn-primary" value="Tambah">
                         </div>
                     </form>
@@ -60,24 +60,28 @@
                 </div>
 
                 <div class="box">
-                    <form action="{{ route('admin.tambahMenu') }}" method="post">
+                    <form action="{{ route('admin.tambahMenu') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="flex align-center gap15">
-                            <input type="text" name="nama_menu" id="" placeholder="Nama Menu">
-                            <input type="number" name="harga" id="" placeholder="Harga Menu">
+                        <div class="">
+                            <input type="text" name="nama_menu" id="" placeholder="Nama Menu" required>
                         </div>
 
                         <div class="flex align-center gap15" style="margin: 10px 0px;">
-                            <input type="number" name="stok" id="" placeholder="stok">
-                            <select name="kategori_id" id="" class="btn-primary">
+                            <input type="number" name="harga" id="" placeholder="Harga Menu" required>
+                            <input type="number" name="stok" id="" placeholder="Stok">
+                        </div>
+
+                        <div class="flex align-center gap15" style="margin: 10px 0px;"">
+                            <select name="kategori_id" id="" class="btn-primary" required>
                                 <option value="">-- Kategori --</option>
                                 @foreach ($kategoris as $kategori)
                                     <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
                                 @endforeach
                             </select>
 
-                            <label for="foto" class="btn-primary text-small"><i class="ri-image-add-line text-medium text-white"></i> Pilih gambar</label>
-                            <input type="file" name="foto" id="foto" class="file">
+                            <label for="foto" class="btn-primary text-small"><i
+                                    class="ri-image-add-line text-medium text-white"></i> Pilih gambar</label>
+                            <input type="file" name="gambar_menu" id="foto" class="file">
                         </div>
 
                         <textarea name="deskripsi" id="" cols="" rows="" class="textarea1"
@@ -111,6 +115,7 @@
                     @else
                         <tr>
                             <th>No</th>
+                            <th>Gambar Menu</th>
                             <th>Nama Menu</th>
                             <th>Harga</th>
                             <th>Stok</th>
@@ -125,11 +130,19 @@
                         @foreach ($menus as $menu)
                             <tr>
                                 <td>{{ $no++ }}</td>
+                                <td><img src="{{ asset('storage/' . $menu->foto) }}" alt="{{ $menu->nama_menu }}"></td>
                                 <td>{{ $menu->nama_menu }}</td>
                                 <td>{{ 'Rp. ' . number_format($menu->harga, 0, ',', '.') }}</td>
                                 <td>{{ $menu->stok }}</td>
                                 <td>Penjualan</td>
-                                <td>Aksi</td>
+                                <td>
+                                    <form action="{{ route('admin.hapusMenu', $menu->id) }}" method="post"
+                                        onclick="return confirm('Yakin ingin menghapus menu ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-red">hapus</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     @endif
