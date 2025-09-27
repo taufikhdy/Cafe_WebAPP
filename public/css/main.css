@@ -36,6 +36,11 @@ a {
     border-bottom: 4px solid var(--primary);
 }
 
+.link{
+    color: var(--primary);
+    text-decoration: underline;
+}
+
 .top-navbar {
     position: relative;
     z-index: 99;
@@ -362,6 +367,7 @@ input[type='submit']:hover{
     padding: 5px;
     cursor: pointer;
     text-wrap: nowrap;
+    font-weight: 600;
 }
 
 .btn-red {
@@ -372,6 +378,7 @@ input[type='submit']:hover{
     padding: 5px;
     cursor: pointer;
     text-wrap: nowrap;
+    font-weight: 600;
     /* width: max-content; */
 }
 
@@ -412,6 +419,7 @@ table {
     text-align: center;
     width: 100%;
     text-wrap: nowrap;
+    background-color: var(--neutral-100);
 }
 
 table th,
@@ -434,6 +442,13 @@ table td img{
     width: 100px;
 }
 
+.tape{
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background-color: var(--neutral-100);
+}
+
 
 
 
@@ -444,7 +459,7 @@ table td img{
     }
 
     .top-navbar {
-        padding: 15px 25px;
+        padding: 0px 25px;
         position: sticky;
         z-index: 99;
         top: 0;

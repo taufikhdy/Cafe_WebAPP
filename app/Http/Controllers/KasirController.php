@@ -23,6 +23,7 @@ class KasirController extends Controller
 
     public function dashboard()
     {
+        $this->kasir();
         return view('admin.dashboard');
     }
 }

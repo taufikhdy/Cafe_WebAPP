@@ -8,7 +8,8 @@
     {{-- <meta name="scroll-restoration" content="manual"> --}}
     <title>@yield('title')</title>
 
-    <link rel="stylesheet" href="{{ asset('css/customer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/customer.css?4++') }}">
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card.css') }}">
     <link rel="stylesheet" href="{{ asset('remixicon/fonts/remixicon.css?v2++') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/other.css') }}"> --}}
@@ -17,6 +18,7 @@
 <body>
 
 
+    @include('components.sidebar')
     @include('components.customerBar')
 
 

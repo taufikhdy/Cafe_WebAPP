@@ -1,0 +1,11 @@
+.menu-section{
+    width: 100%;
+    padding: 20px;
+}
+
+@media screen and (min-width:0px) and (max-width: 500px)
+{
+    .menu-section{
+        padding: 20px 10px;
+    }
+}

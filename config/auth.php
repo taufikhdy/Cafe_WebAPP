@@ -40,6 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // GUARD AUTH CUSTOMER (CUSTOM)
+
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ]
     ],
 
     /*
@@ -64,6 +71,11 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+
+        'meja' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Meja::class
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

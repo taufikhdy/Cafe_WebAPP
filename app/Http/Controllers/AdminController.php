@@ -6,11 +6,14 @@ use App\Models\Kategori;
 use App\Models\Menu;
 use App\Models\Roles;
 use App\Models\User;
+use App\Models\Meja;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Vinkla\Hashids\Facades\Hashids;
 
 class AdminController extends Controller
 {
@@ -25,7 +28,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         $this->admin();
-        return view('admin.dashboard');
+        return view('admin.report'); // DIGANTI KE LAPORAN DARI DASHBOARD EFISIENSI HALAMAN
     }
 
     public function report()
@@ -46,6 +49,7 @@ class AdminController extends Controller
 
     public function tambahKategori(Request $request)
     {
+        $this->admin();
         $request->validate([
             'nama_kategori' => 'required|string'
         ]);
@@ -56,6 +60,7 @@ class AdminController extends Controller
 
     public function hapusKategori($id)
     {
+        $this->admin();
         Kategori::findOrFail($id)->delete();
         return redirect()->route('admin.menu')->with('success', 'Kategori berhasil dihapus!');
     }
@@ -72,6 +77,7 @@ class AdminController extends Controller
 
     public function tambahMenu(Request $request)
     {
+        $this->admin();
         $request->validate([
             'nama_menu' => 'required|string',
             'harga' => 'required|integer',
@@ -82,8 +88,7 @@ class AdminController extends Controller
         ]);
 
         $pathFoto = null;
-        if($request->hasFile('gambar_menu'))
-        {
+        if ($request->hasFile('gambar_menu')) {
             $pathFoto = $request->file('gambar_menu')->store('menu', 'public');
         }
 
@@ -100,11 +105,95 @@ class AdminController extends Controller
 
     public function hapusMenu($id)
     {
+        $this->admin();
         Menu::findOrFail($id)->delete();
         return redirect()->route('admin.menu');
     }
 
 
+
+    public function meja()
+    {
+        $this->admin();
+
+        $role = Roles::all();
+
+        $default = Roles::where('nama_role', 'customer')->first();
+
+        $meja = Meja::all();
+        // data tersortir berdasarkan tanggal bergantung pada filter meja kalau latest tersusun secara terbaru meski sudah dalam array
+
+        $oldUrl = Meja::orderBy('created_at', 'asc')->first();
+
+        // QR Generator
+        $qrcode = [];
+
+
+        foreach ($meja as $m) {
+            $hash = Hashids::connection('meja')->encode($m->id);
+            if ($m->url){
+            $url = $m->url;
+            } else {
+                $oldUrl = Meja::whereNotNull('url')->orderBy('created_at', 'asc')->first();
+                $url = $oldUrl ? $oldUrl->url : '/';
+            }
+
+            $urlFull = url($url . '/' . $hash);
+
+
+            // simpan hasil ke array
+            $qrcode[] = [
+                'meja'=> $m,
+                'url' => $urlFull,
+                'qr' => QrCode::size(80)->generate($urlFull)
+            ];
+        }
+
+
+        return view('admin.meja', compact('role', 'default', 'qrcode'));
+    }
+
+    public function buatUrl(Request $request)
+    {
+        $this->admin();
+
+        $request->validate([
+            'url' => 'string|required'
+        ]);
+
+        Meja::query()->update(['url' => $request->url]);
+
+        return redirect()->route('admin.meja');
+    }
+
+
+    public function tambahMeja(Request $request)
+    {
+        $this->admin();
+
+        $request->validate([
+            'nama_meja' => 'string|required',
+            'password' => 'string|required',
+            'role_id' => 'required|exists:roles,id'
+        ]);
+
+        Meja::create([
+            'nama_meja' => $request->nama_meja,
+            'password' => $request->password,
+            'role_id' => $request->role_id
+        ]);
+
+        return redirect()->route('admin.meja');
+    }
+
+    public function hapusMeja($id)
+    {
+        $this->admin();
+
+        Meja::findOrFail($id)->delete();
+
+        return redirect()->route('admin.meja');
+    }
 
 
     public function pengguna()
@@ -128,6 +217,15 @@ class AdminController extends Controller
         ]);
 
         User::create($request->all());
+
+        return redirect()->route('admin.pengguna');
+    }
+
+    public function hapusPengguna($id)
+    {
+        $this->admin();
+
+        User::findOrFail($id)->delete();
 
         return redirect()->route('admin.pengguna');
     }

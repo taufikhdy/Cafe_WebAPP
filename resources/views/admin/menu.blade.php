@@ -130,7 +130,7 @@
                         @foreach ($menus as $menu)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td><img src="{{ asset('storage/' . $menu->foto) }}" alt="{{ $menu->nama_menu }}"></td>
+                                <td class="tape"><img src="{{ asset('storage/' . $menu->foto) }}" alt="{{ $menu->nama_menu }}"></td>
                                 <td>{{ $menu->nama_menu }}</td>
                                 <td>{{ 'Rp. ' . number_format($menu->harga, 0, ',', '.') }}</td>
                                 <td>{{ $menu->stok }}</td>

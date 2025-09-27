@@ -18,12 +18,9 @@ class OfficeController extends Controller
 
     public function login(): View
     {
-        if(Auth::user()?->role_id === 1)
-        {
+        if (Auth::user()?->role_id === 1) {
             return view('admin.dashboard');
-        }
-
-        elseif(Auth::user()?->role_id === 2){
+        } elseif (Auth::user()?->role_id === 2) {
             return view('kasir.dashboard');
         }
 
@@ -37,24 +34,31 @@ class OfficeController extends Controller
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            $id = Auth::user()->id;
+            $user = User::findOrFail($id);
+
+            $user->status = 'online';
+            $user->save();
 
             $role = Auth::user()?->role_id;
 
-            return match($role){
-                1 => redirect()->route('admin.dashboard'),
+            return match ($role) {
+                1 => redirect()->route('admin.report'),
                 2 => redirect()->route('kasir.dashboard'),
                 3 => redirect()->route('customer.dashboard'),
                 default => redirect()->route('login')
             };
+
         }
 
 
 
         $username = User::where('name', $request->name)->first();
 
-        if(!$username){
+        if (!$username) {
             return redirect()->back()->with('name', 'Username tidak ditemukan');
         }
         return redirect()->back()->with('password', 'Password yang anda masukkan salah');
@@ -63,6 +67,11 @@ class OfficeController extends Controller
 
     public function logout(Request $request): RedirectResponse
     {
+        $id = $request->id_user;
+        $user = User::findOrFail($id);
+        $user->status = 'offline';
+        $user->save();
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

@@ -20,7 +20,7 @@
                         <img src="" alt="user photo" class="foto">
 
                         <div class="profile-info">
-                            <div class="text-info">Nama Pengguna</div>
+                            <div class="text-info"></div>
                             <div class="text-info text-bold">{{ Auth::User()->name }}</div>
                             <div class="text-info">Role Pengguna</div>
                             <div class="text-info text-bold">{{ Auth::user()->role->nama_role }}</div>
@@ -36,7 +36,7 @@
                     <div class="profile-title">
                         <h3>Tambah Pengguna</h3>
                     </div>
-                    <form action="{{route('admin.tambahPengguna')}}" method="post">
+                    <form action="{{ route('admin.tambahPengguna') }}" method="post">
                         @csrf
                         <input type="text" name="name" id="" placeholder="Nama Pengguna">
 
@@ -65,30 +65,46 @@
                 <h3>Data Pengguna</h3>
             </div>
 
-            <table>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Pengguna</th>
-                    <th>Role</th>
-                    <th>Aksi</th>
-                </tr>
-
-
-                @php
-                    $no = 1;
-                @endphp
-
-                @foreach ($user as $u)
+            <div class="table-container">
+                <table>
                     <tr>
-                        <td>{{$no++}}</td>
-                        <td>{{$u->name}}</td>
-                        <td>{{$u->role->nama_role}}</td>
-                        <td></td>
+                        <th>No</th>
+                        <th>Nama Pengguna</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
-                @endforeach
-            </table>
+
+
+                    @php
+                        $no = 1;
+                    @endphp
+
+                    @foreach ($user as $u)
+                        <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $u->name }}</td>
+                            <td>{{ $u->role->nama_role }}</td>
+
+                            @if ($u->status === 'offline')
+                                <td style="color: crimson; font-weight: 500;">{{ $u->status }}</td>
+                            @elseif ($u->status === 'online')
+                                <td style="color: var(--primary); font-weight: 500;">{{ $u->status }}</td>
+                            @endif
+                            <td>
+                                <form action="{{ route('admin.hapusPengguna', $u->id) }}" method="post"
+                                    onclick="return confirm('Yakin ingin menghapus akun pengguna ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-red">hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+
+
         </div>
 
-    </div>
-
-@endsection
+    @endsection

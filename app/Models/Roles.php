@@ -15,4 +15,9 @@ class Roles extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function meja(): HasMany
+    {
+        return $this->hasMany(Meja::class);
+    }
 }

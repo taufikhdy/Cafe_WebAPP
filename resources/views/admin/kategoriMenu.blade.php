@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'ohayoy-report')
+@section('title', 'ohayoy-kategori-menu')
 
 @section('content')
 

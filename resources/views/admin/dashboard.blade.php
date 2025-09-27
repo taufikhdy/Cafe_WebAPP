@@ -50,28 +50,6 @@
               </div>
             </div>
 
-            <div class="element-title">
-                <h3>Orderan Pelanggan</h3>
-            </div>
-
-            <ul class="list overflow-y">
-              <li class="list-item">
-                <div class="name">Meja 8</div>
-                <div class="order">Order</div>
-              </li>
-              <li class="list-item">
-                <div class="name">Meja 8</div>
-                <div class="order">Order</div>
-              </li>
-              <li class="list-item">
-                <div class="name">Meja 8</div>
-                <div class="order">Order</div>
-              </li>
-              <li class="list-item">
-                <div class="name">Meja 8</div>
-                <div class="order">Order</div>
-              </li>
-            </ul>
           </div>
 
           <div class="">
