@@ -18,6 +18,7 @@
 <body>
 
 
+    <a href="{{ route('customer.keranjang') }}"><i class="ri-shopping-basket-2-line cart-link"></i></a>
     @include('components.sidebar')
     @include('components.customerBar')
 

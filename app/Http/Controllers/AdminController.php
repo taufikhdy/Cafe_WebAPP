@@ -131,19 +131,22 @@ class AdminController extends Controller
 
         foreach ($meja as $m) {
             $hash = Hashids::connection('meja')->encode($m->id);
-            if ($m->url){
-            $url = $m->url;
+            if ($m->url) {
+                $url = $m->url;
             } else {
                 $oldUrl = Meja::whereNotNull('url')->orderBy('created_at', 'asc')->first();
                 $url = $oldUrl ? $oldUrl->url : '/';
             }
+
+            $m->url = $url;
+            $m->save();
 
             $urlFull = url($url . '/' . $hash);
 
 
             // simpan hasil ke array
             $qrcode[] = [
-                'meja'=> $m,
+                'meja' => $m,
                 'url' => $urlFull,
                 'qr' => QrCode::size(80)->generate($urlFull)
             ];

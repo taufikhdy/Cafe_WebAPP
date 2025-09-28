@@ -57,7 +57,7 @@
             Mau yang manis, gurih, atau yang seger-seger?</p>
     </div>
 
-    <div class="container-w6 gap30">
+    <div class="container-w6 gap15">
         <a href="" class="box">
             <h4>Manis</h4>
         </a>

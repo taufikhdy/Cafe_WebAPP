@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\OfficeController;
+use App\Http\Controllers\Auth\AuthCustomerController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\KasirController;
+use App\Http\Controllers\KeranjangController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -19,6 +21,15 @@ Route::controller(OfficeController::class)->group(function () {
     route::post('/logout', 'logout')->name('logout');
 
 });
+
+
+Route::controller(AuthCustomerController::class)->group(function () {
+    route::get('/login/customer/{hash}', 'loginByQr')->name('loginByQr');
+    // route::post('/authenticate', 'authenticate')->name('authenticate');
+    route::post('/customer/logout', 'logout')->name('customer.logout');
+
+});
+
 
 Route::controller(AdminController::class)->group(function() {
     route::get('/admin/dashboard', 'dashboard')->name('admin.dashboard');
@@ -53,6 +64,8 @@ Route::controller(KasirController::class)->group(function() {
 
 
 Route::controller(CustomerController::class)->group(function() {
+    route::get('/customer/validation', 'usernameForm')->name('customer.form');
+    route::post('/customer/confirm', 'usernameValid')->name('customer.username.valid');
     route::get('/customer/dashboard', 'dashboard')->name('customer.dashboard');
 
     route::get('/customer/menu/detailMenu/{id}', 'detailMenu')->name('customer.detailMenu');
@@ -61,4 +74,9 @@ Route::controller(CustomerController::class)->group(function() {
     route::get('/customer/menu/cari_menu', 'cariMenu')->name('customer.cariMenu');
 
     route::get('/customer/keranjang', 'keranjang')->name('customer.keranjang');
+});
+
+
+Route::controller(KeranjangController::class)->group(function() {
+    route::post('/customer/menu/detailMenu/tambahMenu', 'tambahKeranjang')->name('customer.tambahMenu');
 });

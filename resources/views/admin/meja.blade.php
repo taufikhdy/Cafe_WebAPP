@@ -47,6 +47,9 @@
                         @csrf
                         <input type="text" name="url" id="" placeholder="contoh : https://example.com">
                         <br>
+                        <input type="text" name="" id="" disabled
+                            value="default : http://cafe_web.test/login/customer">
+                        <br>
                         <input type="submit" name="" id="" class="btn-primary" value="Generate QR Code">
                     </form>
                 </div>
@@ -94,7 +97,13 @@
                                     <td><a href="{{ $data['url'] }}" class="link">{{ $data['url'] }}</a></td>
                                     <td>{{ $data['qr'] }}</td>
                                 @endif
-                                <td>{{ $data['meja']->status }}</td>
+
+                                @if ($data['meja']->status === 'terisi')
+                                    <td style="color: crimson; font-weight: 500;">{{ $data['meja']->status }}</td>
+                                @elseif ($data['meja']->status === 'kosong')
+                                    <td style="color: var(--primary); font-weight: 500;">{{ $data['meja']->status }}</td>
+                                @endif
+
                                 <td>
                                     <div class="flex align-center gap20">
                                         <button class="btn-primary" onclick="print()">Print</button>

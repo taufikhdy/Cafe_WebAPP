@@ -59,6 +59,13 @@
     height: 100vh;
 }
 
+.container2 {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 100vh;
+}
+
 .container .title {
     flex-basis: 50%;
     display: flex;
@@ -84,6 +91,29 @@
     justify-content: center;
     align-items: center;
     background-color: var(--neutral-100);
+}
+
+.container2 .form {
+    width: max-content;
+    padding: 5% 0px;
+}
+
+.container2 .input {
+    width: 100%;
+    padding: 0;
+}
+
+.container2 .title{
+    padding: 30px 0px;
+}
+
+.container2 .title-text{
+    padding: 10px 0px;
+}
+
+.desc{
+    font-size: small;
+    margin-top: 10% !important;
 }
 
 .input {

@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Database\Eloquent\Model;
 
-class Meja extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class Meja extends Authenticatable
 {
     //
     protected $table = 'meja';

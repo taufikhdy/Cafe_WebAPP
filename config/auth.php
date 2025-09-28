@@ -43,9 +43,9 @@ return [
 
         // GUARD AUTH CUSTOMER (CUSTOM)
 
-        'customer' => [
+        'meja' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'meja',
         ]
     ],
 

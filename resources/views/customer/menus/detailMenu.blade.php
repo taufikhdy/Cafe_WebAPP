@@ -30,10 +30,20 @@
             </div>
         </div>
 
-        <div class="menu-choice flex align-center gap10">
-            <button class="btn-primary action-btn">
-                Tambah
-            </button>
+        <div class="menu-choice">
+            <form action="{{ route('customer.tambahMenu') }}" method="POST">
+                @csrf
+
+                <div class="flex align-center gap10 w100">
+                <input type="hidden" name="meja_id" id="" value="{{Auth::guard('meja')->id()}}">
+                <input type="hidden" name="menu_id" id="" value="{{ $menu->id }}">
+                <input type="number" name="jumlah" id="" placeholder="Jumlah" value="1">
+
+                <button type="submit" class="btn-primary w100">
+                    Tambah
+                </button>
+                </div>
+            </form>
 
             {{-- <button class="btn-primary-soft text-medium">
                 Masukan ke keranjang

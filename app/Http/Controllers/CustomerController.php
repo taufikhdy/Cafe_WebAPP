@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
+use Vinkla\Hashids\Facades\Hashids;
 
 class CustomerController extends Controller
 {
@@ -24,14 +25,40 @@ class CustomerController extends Controller
 
     protected function customer()
     {
-        if (!Auth::check() or Auth::user()?->role_id !== 3) {
+        if(!Auth::guard('meja')->check() or Auth::guard('meja')->user()->role_id !== 3) {
             abort(403, 'Akses ditolak');
         }
+    }
+
+    public function usernameForm(){
+        $this->customer();
+        return view('auth.customer');
+    }
+
+    public function usernameValid(Request $request){
+        $this->customer();
+
+        $request->validate([
+            'username' => 'required|string|min:8|max:12'
+        ]);
+
+        $mejaId = Auth::guard('meja')->user()->id;
+
+        if(Auth::guard('meja')->user()->username === null){
+            $meja = Meja::findorFail($mejaId);
+            $meja->username = $request->username;
+            $meja->save();
+        }
+
+        return redirect()->route('customer.dashboard');
+
     }
 
     public function dashboard()
     {
         $this->customer();
+
+
         $menu = Menu::latest()->get();
         return view('customer.dashboard', compact('menu'));
     }
@@ -75,6 +102,7 @@ class CustomerController extends Controller
     {
         $this->customer();
         $menu = Menu::latest()->get();
+        // $menuId = Hashids::encode($menu->id);
 
         return view('customer.menus.menu', compact('menu'));
     }
@@ -104,7 +132,11 @@ class CustomerController extends Controller
     {
         $this->customer();
 
-        return view('customer.fitur.keranjang');
+        $mejaId = Auth::guard('meja')->id();
+        $keranjang = Keranjang::where('meja_id', $mejaId)->first();
+        $items = KeranjangItem::where('keranjang_id', $keranjang->id)->latest()->get();
+
+        return view('customer.fitur.keranjang', compact('items'));
     }
 
     public function tambahKeranjang(Request $request, $mejaId)

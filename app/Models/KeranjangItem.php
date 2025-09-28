@@ -8,7 +8,7 @@ class KeranjangItem extends Model
 {
     //
 
-    protected $table = 'keranjang_item';
+    // protected $table = 'keranjang_item';
 
     protected $fillable = [
         'keranjang_id',
