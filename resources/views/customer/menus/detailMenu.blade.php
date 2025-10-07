@@ -17,8 +17,18 @@
                 <h2>{{ $menu->nama_menu }}</h2>
                 <p>{{ $menu->kategori->nama_kategori }}</p>
                 <br>
-                <p class="text-medium">Harga</p>
-                <h2>{{ 'Rp. ' . number_format($menu->harga, 0, ',', '.') }}</h2>
+                <div class="flex gap30 align-center w100">
+                    <div class="">
+                        <p class="text-medium">Harga</p>
+                        <h2>{{ 'Rp. ' . number_format($menu->harga, 0, ',', '.') }}</h2>
+                    </div>
+
+                    @if ($menu->status_stok === 'tidak_tersedia')
+                        <p class="btn-red-soft">{{ $menu->status_stok }}</p>
+                    @elseif ($menu->status_stok === 'tersedia')
+                        <p class="btn-primary-soft">{{ $menu->status_stok }}</p>
+                    @endif
+                </div>
             </div>
 
         </div>
@@ -30,25 +40,29 @@
             </div>
         </div>
 
-        <div class="menu-choice">
-            <form action="{{ route('customer.tambahMenu') }}" method="POST">
-                @csrf
+        @if ($menu->status_stok === 'tidak_tersedia')
 
-                <div class="flex align-center gap10 w100">
-                <input type="hidden" name="meja_id" id="" value="{{Auth::guard('meja')->id()}}">
-                <input type="hidden" name="menu_id" id="" value="{{ $menu->id }}">
-                <input type="number" name="jumlah" id="" placeholder="Jumlah" value="1">
+        @elseif ($menu->status_stok === 'tersedia')
+            <div class="menu-choice">
+                <form action="{{ route('customer.tambahMenu') }}" method="POST">
+                    @csrf
 
-                <button type="submit" class="btn-primary w100">
-                    Tambah
-                </button>
-                </div>
-            </form>
+                    <div class="flex align-center gap10 w100">
+                        <input type="hidden" name="meja_id" id="" value="{{ Auth::guard('meja')->id() }}">
+                        <input type="hidden" name="menu_id" id="" value="{{ $menu->id }}">
+                        <input type="number" name="jumlah" id="" placeholder="Jumlah Pesan" value="">
 
-            {{-- <button class="btn-primary-soft text-medium">
+                        <button type="submit" class="btn-primary w100">
+                            Tambah
+                        </button>
+                    </div>
+                </form>
+
+                {{-- <button class="btn-primary-soft text-medium">
                 Masukan ke keranjang
             </button> --}}
-        </div>
+            </div>
+        @endif
 
 
         <h3 class="title-box">Deskripsi Menu</h3>
@@ -82,7 +96,7 @@
 
     </div>
 
-    <div class="title-box w100 text-center">
+    <div class="title-box w100 text-center" style="margin-bottom: 20%;">
         <a href="{{ route('customer.menu') }}" class="btn-primary-soft">Lihat lebih banyak</a>
     </div>
 

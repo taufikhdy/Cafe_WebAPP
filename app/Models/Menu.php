@@ -16,7 +16,8 @@ class Menu extends Authenticatable
         'nama_menu',
         'deskripsi',
         'harga',
-        'stok',
+        'status_stok',
+        'penjualan',
         'foto',
         'kategori_id'
     ];

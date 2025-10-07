@@ -27,16 +27,20 @@ a {
     text-decoration: none;
 }
 
-.box-link{
+.white{
+    color: white;
+}
+
+.box-link {
     display: inline-block;
     padding: 20px 10px;
 }
 
-.box-link.active{
+.box-link.active {
     border-bottom: 4px solid var(--primary);
 }
 
-.link{
+.link {
     color: var(--primary);
     text-decoration: underline;
 }
@@ -54,7 +58,7 @@ a {
     /* box-shadow: 0px 0px 10px 0px hsla(0, 0%, 0%, 0.15); */
 }
 
-.top-navbar .logo{
+.top-navbar .logo {
     padding: 20px 0px;
     margin-right: 20px;
 }
@@ -101,6 +105,14 @@ section.flex {
     justify-content: space-between;
 }
 
+.flex-center{
+    justify-content: center;
+}
+
+.flex-wrap{
+    flex-wrap: wrap;
+}
+
 .gap10 {
     gap: 10px;
 }
@@ -141,8 +153,12 @@ section.flex {
     text-align: right;
 }
 
-.text-white{
+.text-white {
     color: var(--neutral-100);
+}
+
+.text-wrap {
+    text-wrap: wrap;
 }
 
 .overflow {
@@ -157,6 +173,13 @@ section.flex {
     overflow-x: scroll;
 }
 
+.text-block {
+    display: block;
+    width: 100%;
+    padding: 40px;
+    margin: 40px 0px;
+}
+
 .sidebar {
     flex-basis: 20%;
     background-color: var(--neutral-100);
@@ -164,7 +187,8 @@ section.flex {
     position: sticky;
     top: 0;
     z-index: 2;
-    box-shadow: 0px 0px 10px 0px hsla(0, 0%, 0%, 0.05);
+    /* box-shadow: 0px 0px 8px 0px hsla(0, 0%, 0%, 0.05); */
+    border-right: 1px solid var(--neutral-90);
 }
 
 .sidebar a {
@@ -207,12 +231,15 @@ section.flex {
     flex-basis: 100%;
     min-height: 100vh;
     padding: 20px;
+    margin-bottom: 80px;
     position: relative;
-    background-color: hsla(218, 95%, 98%);
+    /* background-color: hsla(0, 0%, 97%); */
 }
 
 .container-w1 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 25px;
+    /* border-bottom: 2px solid var(--neutral-90); */
 }
 
 .container-w2 {
@@ -220,7 +247,9 @@ section.flex {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 25px;
+    /* border-bottom: 2px solid var(--neutral-90); */
 }
 
 .widget1 {
@@ -228,6 +257,7 @@ section.flex {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 15px;
     width: 100%;
+    /* margin-bottom: 40px; */
 }
 
 .widget2 {
@@ -235,7 +265,7 @@ section.flex {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
     width: 100%;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
 }
 
 
@@ -255,14 +285,17 @@ section.flex {
 .box {
     padding: 15px;
     background-color: var(--neutral-100);
-    box-shadow: 0px 0px 10px 0px hsla(0, 0%, 0%, 0.10);
+    border: 1px solid var(--neutral-90);
+    /* background: linear-gradient(to left top, hsla(218, 95%, 90%, 0.7), white); */
+    /* box-shadow: 0px 0px 10px 0px hsla(0, 0%, 0%, 0.08); */
     border-radius: 8px;
 }
 
 .long-box {
     width: 100%;
-    background-color: var(--neutral-100);
-    box-shadow: 0px 0px 8px 0px hsla(0, 0%, 0%, 0.10);
+    /* background: linear-gradient(to left top, hsla(218, 95%, 90%, 0.7), white); */
+    /* box-shadow: 0px 0px 10px 0px hsla(0, 0%, 0%, 0.08); */
+    border: 1px solid var(--neutral-90);
     min-height: 130px;
     height: 100%;
     padding: 20px;
@@ -275,8 +308,10 @@ section.flex {
 .box-s {
     width: 100%;
     height: 100%;
-    background-color: var(--neutral-100);
-    box-shadow: 0px 0px 8px 0px hsla(0, 0%, 0%, 0.10);
+    /* background-color: var(--neutral-100); */
+    /* background: linear-gradient(to left top, hsla(218, 95%, 90%, 0.7), white); */
+    /* box-shadow: 0px 0px 10px 0px hsla(0, 0%, 0%, 0.08); */
+    border: 1px solid var(--neutral-90);
     padding: 15px;
     border-radius: 8px;
 }
@@ -287,6 +322,7 @@ section.flex {
     width: 100%;
     color: var(--neutral-30);
     border-radius: 8px;
+    margin-bottom: 14px;
 }
 
 .box-number {
@@ -363,8 +399,8 @@ input[type='submit']:hover{
     border: 2px solid var(--primary);
     color: var(--neutral-100);
     padding: 10px;
-    border-radius: 4px;
-    padding: 5px;
+    border-radius: 8px;
+    padding: 8px;
     cursor: pointer;
     text-wrap: nowrap;
     font-weight: 600;
@@ -380,6 +416,39 @@ input[type='submit']:hover{
     text-wrap: nowrap;
     font-weight: 600;
     /* width: max-content; */
+}
+
+.btn-yellow {
+    background-color: var(--secondary);
+    border: 1px solid var(--secondary);
+    color: var(--neutral-100);
+    border-radius: 4px;
+    padding: 5px;
+    cursor: pointer;
+    text-wrap: nowrap;
+    font-weight: 600;
+}
+
+.btn-blue {
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    color: var(--neutral-100);
+    border-radius: 4px;
+    padding: 6px;
+    cursor: pointer;
+    text-wrap: nowrap;
+    font-weight: 600;
+}
+
+.check-button{
+    color: white;
+    display: none;
+    /* transform: scale(0) */
+}
+
+.check-button.active{
+    display: inline;
+    /* transform: scale(1); */
 }
 
 #myLineChart {
@@ -410,14 +479,15 @@ input[type='submit']:hover{
     padding: 10px;
     /* margin-bottom: 10px; */
     background-color: var(--neutral-100);
-    box-shadow: 0px 0px 5px 0px hsla(0, 0%, 0%, 0.10);
+    /* box-shadow: 0px 0px 10px 0px hsla(0, 0%, 0%, 0.08); */
+    border-bottom: 1px solid var(--neutral-80);
     /* border-radius: 8px; */
 }
 
 table {
     border-collapse: collapse;
     text-align: center;
-    width: 100%;
+    /* width: 100%; */
     text-wrap: nowrap;
     background-color: var(--neutral-100);
 }
@@ -425,24 +495,45 @@ table {
 table th,
 table td {
     padding: 5px;
+    border-bottom: 1px solid var(--neutral-70);
 }
 
 table th {
     background-color: var(--primary);
     color: var(--neutral-100);
-    border: 1px solid var(--neutral-100);
+    position: sticky;
+    top: 10;
+    /* border: 1px solid var(--neutral-100); */
 }
 
 table td {
     color: var(--neutral-20);
-    border: 1px solid var(--neutral-70);
+    /* border: 1px solid var(--neutral-70); */
 }
 
-table td img{
+table td img {
     width: 100px;
 }
 
-.tape{
+table.p10 th,
+table.p10 td {
+    padding: 10px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table{
+    width: 100%;
+}
+
+.p10{
+    padding: 10px;
+}
+
+.tape {
     position: sticky;
     left: 0;
     z-index: 10;

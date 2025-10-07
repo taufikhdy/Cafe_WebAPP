@@ -22,6 +22,17 @@ btnClose.addEventListener('click', () => {
     sidebar.classList.remove('on');
 });
 
+const options = document.querySelectorAll('.option');
+
+options.forEach(option => {
+    option.addEventListener('click', () => {
+        // ambil button dalam form yang sama
+        const form = option.closest('form');
+        const btnCheck = form.querySelector('.option-btn');
+        btnCheck.classList.add('active');
+    });
+});
+
 const btnMenu = document.getElementById('menuSwitch');
 const btnCate = document.getElementById('cateSwitch');
 const formMenu = document.getElementById('menuForm');
@@ -36,3 +47,5 @@ btnCate.addEventListener('click', ()=> {
     formMenu.classList.toggle('on');
     formCate.classList.toggle('on');
 })
+
+

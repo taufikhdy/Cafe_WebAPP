@@ -1,33 +1,75 @@
-.profile-content{
+.profile-content {
     display: flex;
     /* justify-content: space-between; */
 }
 
-.profile-title{
+.profile-title {
     display: block;
     padding: ;
     margin-bottom: 15px;
 }
 
-.profile-card{
+.profile-card {
     background-color: var(--neutral-100);
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0px 0px 8px 0px hsla(0, 0%, 0%, 0.10);
+    border: 1px solid var(--neutral-90);
+    /* box-shadow: 0px 0px 8px 0px hsla(0, 0%, 0%, 0.05); */
+
 }
 
-.profile-info{
+.profile-info {
     padding: 0px 0px 0px 20px;
 }
 
-.text-info{
+.text-info {
     display: block;
     padding: 8px;
 }
 
-.foto{
+.foto {
     width: 25%;
     height: 100%;
     background-color: var(--neutral-90);
 }
 
+
+
+.card-order {
+    display: block;
+    width: 100%;
+    background-color: var(--neutral-100);
+    padding: 15px;
+    /* box-shadow: 0px 0px 8px 0px hsla(0, 0%, 0%, 0.05); */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 2px solid var(--neutral-90);
+}
+
+.card-order .card-title {
+    display: block;
+    padding: 15px 0px 20px;
+    width: 100%;
+    /* color: var(--neutral-100); */
+    /* background-color: var(--primary); */
+    border-radius: 15px 15px 0px 0px;
+}
+
+
+.card-order .order-data {
+    width: 100%;
+}
+
+.card-order .table-container table {
+    width: 100%;
+}
+
+.card-order .card-controll {
+    /* display: block; */
+    width: 100%;
+    padding: 20px 0px 0px;
+}
+
+.total {
+    background-color: hsla(218, 95%, 95%);
+}

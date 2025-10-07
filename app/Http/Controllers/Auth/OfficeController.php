@@ -21,7 +21,7 @@ class OfficeController extends Controller
         if (Auth::user()?->role_id === 1) {
             return view('admin.dashboard');
         } elseif (Auth::user()?->role_id === 2) {
-            return view('kasir.dashboard');
+            return view('kasir.pesanan');
         }
 
         return view('auth.login');
@@ -47,7 +47,7 @@ class OfficeController extends Controller
 
             return match ($role) {
                 1 => redirect()->route('admin.report'),
-                2 => redirect()->route('kasir.dashboard'),
+                2 => redirect()->route('kasir.pesanan'),
                 3 => redirect()->route('customer.dashboard'),
                 default => redirect()->route('login')
             };

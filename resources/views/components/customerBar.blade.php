@@ -26,10 +26,16 @@
         @endif
     </div>
 
-    <div class="flex align-center gap20">
+    <div class="flex align-center gap10">
         <div class="text-right">
             <h3>{{ Auth::guard('meja')->user()->username }}</h3>
             <p class="text-small">{{ Auth::guard('meja')->user()->role->nama_role }}</p>
         </div>
+
+        <a href="{{ route('customer.keranjang') }}" class="{{ Request::is('customer/keranjang*') ? 'off' : '' }}" title="Keranjang"><i
+                class="ri-shopping-basket-2-line cart-link"></i></a>
+
+        <a href="{{ route('customer.orders') }}" class="off {{ Request::is('customer/keranjang*') ? 'on' : '' }}" title="Pesanan"><i
+                class="ri-receipt-line cart-link"></i></a>
     </div>
 </nav>

@@ -7,6 +7,7 @@ use App\Models\Menu;
 use App\Models\Roles;
 use App\Models\User;
 use App\Models\Meja;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -34,9 +35,44 @@ class AdminController extends Controller
     public function report()
     {
         $this->admin();
-        return view('admin.report');
+
+
+        $terlaris = Menu::orderBy('penjualan', 'desc')->take(5)->get();
+        return view('admin.report', compact('terlaris'));
     }
 
+    public function reportData()
+    {
+        $this->admin();
+
+        // $mejaAktif = Meja::where('status', 'terisi')->count();
+        // $meja = Meja::count();
+        // $transaksi = Transaksi::count();
+        // $pemasukan = Transaksi::sum('total_bayar');
+
+
+        return response()->json([
+            'mejaAktif' => Meja::where('status', 'terisi')->count(),
+            'meja' => Meja::count(),
+            'transaksi' => Transaksi::count(),
+            'pemasukan' => Transaksi::sum('total_bayar'),
+            'pemasukan_bulanan' => Transaksi::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('total_bayar')
+        ]);
+    }
+
+
+    public function transaksi()
+    {
+        $transaksi = Transaksi::where('tanggal', today())->count();
+        $transaksiAll = Transaksi::get()->count();
+
+        $data = Transaksi::latest()->get();
+
+        $pemasukan = Transaksi::where('tanggal', today())->sum('total_bayar');
+        $pemasukan_bulanan = Transaksi::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('total_bayar');
+
+        return view('admin.dataTransaksi', compact('transaksi', 'data', 'pemasukan', 'pemasukan_bulanan', 'transaksiAll'));
+    }
 
 
     public function kategoriMenu()
@@ -72,7 +108,8 @@ class AdminController extends Controller
         $this->admin();
         $kategoris = Kategori::all();
         $menus = Menu::latest()->get();
-        return view('admin.menu', compact('kategoris', 'menus'));
+        $terlaris = Menu::orderBy('penjualan', 'desc')->take(5)->get();
+        return view('admin.menu', compact('kategoris', 'menus', 'terlaris'));
     }
 
     public function tambahMenu(Request $request)
@@ -110,18 +147,29 @@ class AdminController extends Controller
         return redirect()->route('admin.menu');
     }
 
-
-
-    public function meja()
+    public function menuStatus(Request $request)
     {
         $this->admin();
 
-        $role = Roles::all();
+        $request->validate([
+            'menu_id' => 'string|required',
+            'status_stok' => 'string|required'
+        ]);
 
-        $default = Roles::where('nama_role', 'customer')->first();
+        $menuStatus = Menu::where('id', $request->menu_id)->first();
+
+        $menuStatus->status_stok = $request->status_stok;
+        $menuStatus->save();
+
+        return redirect()->route('admin.menu');
+    }
+
+
+    public function mejaData()
+    {
+        $this->admin();
 
         $meja = Meja::all();
-        // data tersortir berdasarkan tanggal bergantung pada filter meja kalau latest tersusun secara terbaru meski sudah dalam array
 
         $oldUrl = Meja::orderBy('created_at', 'asc')->first();
 
@@ -152,6 +200,54 @@ class AdminController extends Controller
             ];
         }
 
+
+        return response()->json([
+            'qrcode' => $qrcode
+        ]);
+    }
+
+    public function meja()
+    {
+        $this->admin();
+
+        $role = Roles::all();
+
+        $default = Roles::where('nama_role', 'customer')->first();
+
+        // $meja = Meja::all();
+        // data tersortir berdasarkan tanggal bergantung pada filter meja kalau latest tersusun secara terbaru meski sudah dalam array
+
+
+        $meja = Meja::all();
+
+        $oldUrl = Meja::orderBy('created_at', 'asc')->first();
+
+        // QR Generator
+        $qrcode = [];
+
+
+        foreach ($meja as $m) {
+            $hash = Hashids::connection('meja')->encode($m->id);
+            if ($m->url) {
+                $url = $m->url;
+            } else {
+                $oldUrl = Meja::whereNotNull('url')->orderBy('created_at', 'asc')->first();
+                $url = $oldUrl ? $oldUrl->url : '/';
+            }
+
+            $m->url = $url;
+            $m->save();
+
+            $urlFull = url($url . '/' . $hash);
+
+
+            // simpan hasil ke array
+            $qrcode[] = [
+                'meja' => $m,
+                'url' => $urlFull,
+                'qr' => QrCode::size(80)->generate($urlFull)
+            ];
+        }
 
         return view('admin.meja', compact('role', 'default', 'qrcode'));
     }

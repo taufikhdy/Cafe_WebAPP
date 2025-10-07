@@ -25,33 +25,34 @@ class CustomerController extends Controller
 
     protected function customer()
     {
-        if(!Auth::guard('meja')->check() or Auth::guard('meja')->user()->role_id !== 3) {
+        if (!Auth::guard('meja')->check() or Auth::guard('meja')->user()->role_id !== 3) {
             abort(403, 'Akses ditolak');
         }
     }
 
-    public function usernameForm(){
+    public function usernameForm()
+    {
         $this->customer();
         return view('auth.customer');
     }
 
-    public function usernameValid(Request $request){
+    public function usernameValid(Request $request)
+    {
         $this->customer();
 
         $request->validate([
-            'username' => 'required|string|min:8|max:12'
+            'username' => 'required|string|min:5|max:12'
         ]);
 
         $mejaId = Auth::guard('meja')->user()->id;
 
-        if(Auth::guard('meja')->user()->username === null){
+        if (Auth::guard('meja')->user()->username === null) {
             $meja = Meja::findorFail($mejaId);
             $meja->username = $request->username;
             $meja->save();
         }
 
         return redirect()->route('customer.dashboard');
-
     }
 
     public function dashboard()
@@ -134,7 +135,12 @@ class CustomerController extends Controller
 
         $mejaId = Auth::guard('meja')->id();
         $keranjang = Keranjang::where('meja_id', $mejaId)->first();
-        $items = KeranjangItem::where('keranjang_id', $keranjang->id)->latest()->get();
+
+        if (!$keranjang) {
+            $items = [];
+        } else {
+            $items = KeranjangItem::where('keranjang_id', $keranjang->id)->latest()->get();
+        }
 
         return view('customer.fitur.keranjang', compact('items'));
     }
@@ -170,6 +176,72 @@ class CustomerController extends Controller
             ]);
         }
 
-        return redirect()->back();
+        return redirect()->route('customer.detailMenu', $request->menu_id);
+    }
+
+
+    public function orders()
+    {
+        $this->customer();
+
+        $mejaId = Auth::guard('meja')->id();
+        $orders = Order::where('meja_id', $mejaId)->with('items.menu')->latest()->get();
+
+        return view('customer.fitur.order', compact('orders'));
+    }
+
+
+    public function orderMenu(Request $request)
+    {
+        $this->customer();
+        $mejaId = Auth::guard('meja')->id();
+
+        $itemIds = $request->items ?? [];
+        $jumlahs = $request->jumlah ?? [];
+
+        if (empty($itemIds)) {
+            return back()->with('error', 'tidak ada menu yang dipilih');
+        }
+
+        $order = Order::create([
+            'meja_id' => $mejaId,
+            'total_harga' => 0
+        ]);
+
+        $total = 0;
+
+        foreach ($itemIds as $itemId) {
+            $item = KeranjangItem::with('menu')->find($itemId);
+
+            if (!$item) continue;
+
+            $qty = $jumlahs[$itemId] ?? $item->jumlah;
+
+            $subtotal = $qty * $item->menu->harga;
+            $total += $subtotal;
+
+
+            OrderItem::create([
+                'order_id' => $order->id,
+                'menu_id' => $item->menu->id,
+                'jumlah' => $qty,
+                'harga_satuan' => $item->menu->harga,
+                'subtotal' => $subtotal
+            ]);
+
+            $menu = Menu::where('id', $item->menu->id)->first();
+
+            $menu->penjualan += $qty;
+            $menu->save();
+
+            $item->delete();
+        }
+
+        $order->update([
+            'total_harga' => $total
+        ]);
+
+
+        return redirect()->route('customer.orders');
     }
 }

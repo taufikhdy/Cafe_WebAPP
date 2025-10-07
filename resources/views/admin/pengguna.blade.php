@@ -5,9 +5,6 @@
 @section('content')
 
     <div class="content">
-        <div class="element-title">
-            <h3>Pengguna</h3>
-        </div>
 
         <div class="container-w2">
             <div class="">
@@ -42,14 +39,14 @@
 
                         <div class="flex align-center gap15" style="margin: 10px 0px;">
                             <input type="text" name="password" id="" placeholder="Password" value="password123">
-                            <select name="role_id" id="" class="btn-primary">
+                            <select name="role_id" id="" class="btn-blue">
                                 <option value="">-- Role --</option>
                                 @foreach ($role as $role)
                                     <option value="{{ $role->id }}">{{ $role->nama_role }}</option>
                                 @endforeach
                             </select>
 
-                            <label for="foto" class="btn-primary text-small"><i
+                            <label for="foto" class="btn-blue text-small"><i
                                     class="ri-image-add-line text-medium text-white"></i> Foto</label>
                             <input type="file" name="foto" id="foto" class="file">
                         </div>
@@ -66,7 +63,7 @@
             </div>
 
             <div class="table-container">
-                <table>
+                <table class="table p10">
                     <tr>
                         <th>No</th>
                         <th>Nama Pengguna</th>

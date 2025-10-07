@@ -53,8 +53,7 @@
 
     <div class="text-block text-center">
         <h1 class="title-box">Bingung mau pesen apa?</h1>
-        <p class="font-sb">Tenang, kita bantu pilih sesuai selera kamu. <br>
-            Mau yang manis, gurih, atau yang seger-seger?</p>
+        <p class="font-sb">Tenang, kita bantu pilih sesuai selera kamu.</p>
     </div>
 
     <div class="container-w6 gap15">
@@ -71,6 +70,7 @@
         </a>
     </div>
 
-    @include('components.footer')
-
+    {{-- <div class="footer {{ Request::is('/customer/dashboard') ? 'on' : '' }}"> --}}
+        @include('components.footer')
+    {{-- </div> --}}
 @endsection

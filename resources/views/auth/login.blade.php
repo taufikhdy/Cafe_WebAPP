@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Ohayo-Login</title>
     <link rel="stylesheet" href="{{ asset('css/login.css?v5++') }}">
     <link rel="stylesheet" href="{{ asset('remixicon/fonts/remixicon.css') }}">
@@ -14,21 +15,22 @@
     @guest
 
         <div class="container">
-            <div class="title">
-                <div class="text">
-                    <h1>Ohayoy! <br> let's Login</h1>
+            <img src="{{ asset('images/banner.jpeg') }}" alt="" class="object-fit">
 
-                    <br>
+            <div class="form position">
 
-                    <p>Welcome to ohayoy login page, lets login for manage your cafe now!</p>
-                </div>
-            </div>
 
-            <div class="form">
                 <form action="{{ route('authenticate') }}" method="POST">
                     @csrf
                     <div class="input">
-                        <input type="text" name="name" id="" placeholder="Username" autocomplete="off">
+                        <div class="">
+                            <div class="text-small">Selamat datang di</div>
+                            <h1>Ohayoy
+                            Cafe Management System</h1>
+                            <div class="text-small">Masuk untuk mengelola pesanan, stok, hingga laporan bisnis anda</div>
+                        </div>
+                        <br>
+                        <input type="text" name="name" placeholder="Username" autocomplete="off">
                         @if (session('name'))
                             <p>{{ session('name') }}</p>
                         @endif
@@ -41,11 +43,12 @@
                         @if (session('password'))
                             <p>{{ session('password') }}</p>
                         @endif
-                        <input type="submit" name="" id="" value="Login">
+                        <input type="submit" name="" value="Login">
                     </div>
                 </form>
             </div>
         </div>
+
     @endguest
 
     <script src="{{ asset('js/javascript.js') }}"></script>

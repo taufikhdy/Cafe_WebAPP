@@ -18,11 +18,16 @@ class Order extends Model
 
     public function meja()
     {
-        return $this->belongsTo(Meja::class);
+        return $this->belongsTo(Meja::class, 'meja_id');
     }
 
-    public function item()
+    public function items()
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    // public function transaksi()
+    // {
+    //     return $this->hasMany(Transaksi::class);
+    // }
 }

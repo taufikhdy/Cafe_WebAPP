@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreignId('meja_id')->constrained('meja')->onDelete('cascade');
             $table->integer('total_harga');
-            $table->enum('status', ['pending', 'paid', 'complete'])->default('pending');
+            $table->enum('status', ['pending', 'ordered', 'paid', 'complete'])->default('pending');
 
             $table->timestamps();
         });
