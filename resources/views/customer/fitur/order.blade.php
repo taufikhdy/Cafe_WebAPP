@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 
-@section('title', 'ohayoy-keranjang')
+@section('title', 'ohayoy-order')
 
 @section('content')
 
@@ -32,18 +32,22 @@
                                     <div class="flex flex-between align-center w100">
                                         <div class="w100">
                                             <h3 class="title">{{ $i->menu->nama_menu }}</h3>
-                                            <p class="text-small">{{ $i->menu->kategori->nama_kategori }}</p>
 
-                                            <div class="flex align-center flex-between">
-                                                <h4>Jumlah = {{ $i->jumlah }}</h4>
-
-                                                @if ($order->status === 'pending')
-                                                    <div class="pending text-small">{{ $order->status }}</div>
-
-                                                @elseif ($order->status === 'ordered')
-                                                    <div class="ordered text-small">{{ $order->status }}</div>
-                                                @endif
+                                            <div class="flex align-center gap10">
+                                                <p class="badge-sm">{{ $i->menu->kategori->nama_kategori }}</p>
+                                                <div class="">
+                                                    @if ($order->status === 'pending')
+                                                        <div class="pending text-small">{{ $order->status }}</div>
+                                                    @elseif ($order->status === 'ordered')
+                                                        <div class="ordered text-small">{{ $order->status }}</div>
+                                                    @endif
+                                                </div>
                                             </div>
+
+                                            <h4 class="mt10">Pesan {{ $i->jumlah }}</h4>
+
+                                            <h4 class="mt10">Total
+                                                {{ 'Rp. ' . number_format($i->subtotal, 0, ',', '.') }}</h4>
                                 </a>
                             </div>
 
@@ -55,6 +59,10 @@
     </form>
     </div>
     @endif
+
+    <div class="bottom-navbar text-center left w100">
+        <h3>Total Bayar {{ 'Rp. ' . number_format($total_bayar, 0, ',', '.') }}</.>
+    </div>
     </div>
 
 @endsection

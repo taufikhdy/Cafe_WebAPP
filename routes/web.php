@@ -29,6 +29,7 @@ Route::middleware(['web'])->group(function () {
         // route::post('/authenticate', 'authenticate')->name('authenticate');
         route::post('/customer/logout', 'logout')->name('customer.logout');
 
+        route::get('/wrongHours', 'wrongHours')->name('wrongHours');
         route::get('/wrongway', 'wrongway')->name('wrongway');
         route::get('/thankyou', 'thankyou')->name('thankyou');
     });
@@ -41,14 +42,18 @@ Route::controller(AdminController::class)->group(function () {
     route::get('/admin/report', 'report')->name('admin.report');
     route::get('/admin/report/data', 'reportData')->name('admin.report.data');
     route::get('/admin/dataTransaksi', 'transaksi')->name('admin.dataTransaksi');
+    route::get('/admin/dataTransaksi/exportData', 'exportTransaksi')->name('admin.exportTransaksi');
 
-    route::get('/admin/kategori-menu', 'kategoriMenu')->name('admin.kategoriMenu');
-    route::post('/admin/kategori-menu/tambahKategori', 'tambahKategori')->name('admin.tambahKategori');
-    route::delete('/admin/kategori-menu/hapusKategori/{id}', 'hapusKategori')->name('admin.hapusKategori');
+    route::get('/admin/kategori_menu', 'kategoriMenu')->name('admin.kategoriMenu');
+    route::post('/admin/kategori_menu/tambahKategori', 'tambahKategori')->name('admin.tambahKategori');
+    route::delete('/admin/kategori_menu/hapusKategori/{id}', 'hapusKategori')->name('admin.hapusKategori');
+    route::post('/admin/menu/editKategori', 'editKategori')->name('admin.editKategori');
 
     route::get('/admin/menu', 'menu')->name('admin.menu');
     route::post('/admin/menu/tambahMenu', 'tambahMenu')->name('admin.tambahMenu');
     route::delete('/admin/menu/hapusMenu/{id}', 'hapusMenu')->name('admin.hapusMenu');
+    route::post('/admin/menu/editMenu', 'editMenu')->name('admin.editMenu');
+    route::get('/admin/menu/ulasanMenu/{id}', 'ulasan')->name('admin.ulasan');
 
     route::post('/admin/menu/status', 'menuStatus')->name('admin.menu.status');
 
@@ -58,6 +63,9 @@ Route::controller(AdminController::class)->group(function () {
     route::post('/admin/meja/tambahMeja', 'tambahMeja')->name('admin.tambahMeja');
     route::delete('/admin/menu/hapusMeja/{id}', 'hapusMeja')->name('admin.hapusMeja');
     route::post('/admin/meja/buatUrl', 'buatUrl')->name('admin.buatUrl');
+
+    route::get('/admin/jamOperasional', 'jam')->name('admin.jam');
+    route::post('/admin/jamOperasional/edit', 'editJam')->name('admin.editJam');
 
     route::get('/admin/pengguna', 'pengguna')->name('admin.pengguna');
     route::post('/admin/pengguna/tambahPengguna', 'tambahPengguna')->name('admin.tambahPengguna');
@@ -91,6 +99,8 @@ Route::middleware(['web', 'auth:meja'])->group(function () {
         route::get('/customer/dashboard', 'dashboard')->name('customer.dashboard');
 
         route::get('/customer/menu/detailMenu/{id}', 'detailMenu')->name('customer.detailMenu');
+        route::get('/customer/menu/detailMenu/ulasan/{id}', 'ulasan')->name('customer.ulasan');
+        route::post('/customer/menu/detailMenu/tambahUlasan', 'tambahUlasan')->name('customer.tambahUlasan');
 
         route::get('/customer/menu', 'menu')->name('customer.menu');
         route::get('/customer/menu/cari_menu', 'cariMenu')->name('customer.cariMenu');

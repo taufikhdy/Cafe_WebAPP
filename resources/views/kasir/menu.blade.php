@@ -58,7 +58,7 @@
                                             <option value="tidak_tersedia">Tidak Tersedia</option>
                                         </select>
 
-                                        <button type="submit" class="btn-blue check-button option-btn"><i
+                                        <button type="submit" class="btn-blue check-button option-btn" onclick="loading()"><i
                                                 class="ri-xl ri-check-fill white"></i></button>
                                     </form>
 

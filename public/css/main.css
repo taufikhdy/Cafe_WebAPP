@@ -27,7 +27,7 @@ a {
     text-decoration: none;
 }
 
-.white{
+.white {
     color: white;
 }
 
@@ -47,7 +47,7 @@ a {
 
 .top-navbar {
     position: relative;
-    z-index: 99;
+    z-index: 98;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,7 +64,7 @@ a {
 }
 
 .trigger {
-    padding: 10px 10px 10px 0px;
+    padding: 10px 0px 10px 0px;
     display: none;
 }
 
@@ -105,12 +105,60 @@ section.flex {
     justify-content: space-between;
 }
 
-.flex-center{
+.flex-center {
     justify-content: center;
 }
 
-.flex-wrap{
+.flex-wrap {
     flex-wrap: wrap;
+}
+
+.fd-column {
+    flex-direction: column;
+}
+
+.fd-row {
+    flex-direction: row;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt15 {
+    margin-top: 15px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mb15 {
+    margin-bottom: 15px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+.mb25 {
+    margin-bottom: 25px;
+}
+
+.mb30 {
+    margin-bottom: 30px;
+}
+
+.mb35 {
+    margin-bottom: 35px;
+}
+
+.mb40 {
+    margin-bottom: 40px;
 }
 
 .gap10 {
@@ -173,6 +221,18 @@ section.flex {
     overflow-x: scroll;
 }
 
+.w-max {
+    width: max-content;
+}
+
+.w-fit {
+    width: fit-content;
+}
+
+.w-100 {
+    width: 100%;
+}
+
 .text-block {
     display: block;
     width: 100%;
@@ -181,7 +241,8 @@ section.flex {
 }
 
 .sidebar {
-    flex-basis: 20%;
+    width: 20%;
+    min-width: max-content;
     background-color: var(--neutral-100);
     height: 100vh;
     position: sticky;
@@ -228,7 +289,9 @@ section.flex {
 }
 
 .content {
-    flex-basis: 100%;
+    min-width: 80%;
+    width: max-content;
+    max-width: max-content;
     min-height: 100vh;
     padding: 20px;
     margin-bottom: 80px;
@@ -350,6 +413,14 @@ section.flex {
     width: 100%;
 }
 
+.hidden {
+    display: none;
+}
+
+.star {
+    color: var(--secondary);
+}
+
 input {
     border: 1px solid var(--primary);
     background: none;
@@ -360,9 +431,46 @@ input {
     width: 100%;
 }
 
+.edit-input {
+    padding: 10px;
+    border: 2px solid var(--primary);
+    position: relative;
+    /* width: fit-content; */
+}
+
+.textarea-edit {
+    background-color: var(--neutral-100);
+    border-radius: 8px;
+    resize: none;
+    display: block;
+    height: 38px;
+    transition: .3s ease-in-out;
+}
+
+.textarea-edit:focus {
+    position: absolute;
+    z-index: 80;
+    width: 80%;
+    height: 25%;
+    /* height: 100vh; */
+    /* top: ; */
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+label{
+    cursor: pointer;
+}
+
 input:focus,
-.textarea1:focus {
+.textarea1:focus,
+.textarea-edit:focus {
     outline: 2px solid hsla(218, 95%, 80%);
+}
+
+input:disabled,
+textarea:disabled {
+    border: 1px solid var(--neutral-80);
 }
 
 select option {
@@ -392,6 +500,8 @@ input[type='submit']:hover{
     padding: 10px;
     resize: none;
     border-radius: 8px;
+    font-size: small;
+    /* letter-spacing: 1.1px; */
 }
 
 .btn-primary {
@@ -411,7 +521,7 @@ input[type='submit']:hover{
     border: 1px solid crimson;
     color: var(--neutral-100);
     border-radius: 4px;
-    padding: 5px;
+    padding: 6px;
     cursor: pointer;
     text-wrap: nowrap;
     font-weight: 600;
@@ -423,7 +533,7 @@ input[type='submit']:hover{
     border: 1px solid var(--secondary);
     color: var(--neutral-100);
     border-radius: 4px;
-    padding: 5px;
+    padding: 6px;
     cursor: pointer;
     text-wrap: nowrap;
     font-weight: 600;
@@ -436,17 +546,19 @@ input[type='submit']:hover{
     border-radius: 4px;
     padding: 6px;
     cursor: pointer;
+    font-size: small;
     text-wrap: nowrap;
     font-weight: 600;
+
 }
 
-.check-button{
+.check-button {
     color: white;
     display: none;
     /* transform: scale(0) */
 }
 
-.check-button.active{
+.check-button.active {
     display: inline;
     /* transform: scale(1); */
 }
@@ -465,6 +577,7 @@ input[type='submit']:hover{
 .list {
     display: block;
     width: 100%;
+    margin-top: 20px;
     /* height: 100px; */
     /* background-color: antiquewhite; */
     /* overflow-y: scroll; */
@@ -525,11 +638,11 @@ table.p10 td {
     overflow-x: auto;
 }
 
-.table{
+.table {
     width: 100%;
 }
 
-.p10{
+.p10 {
     padding: 10px;
 }
 
@@ -552,9 +665,10 @@ table.p10 td {
     .top-navbar {
         padding: 0px 25px;
         position: sticky;
-        z-index: 99;
+        z-index: 98;
         top: 0;
         width: 100%;
+        margin-bottom: 10px;
     }
 
     .content {

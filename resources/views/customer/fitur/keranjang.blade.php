@@ -13,7 +13,7 @@
                 <br>
                 <h1> ヾ(≧▽≦*)o </h1>
                 <br>
-                <h5>Yuk cari menu pilihan kamu <a href="{{route('customer.menu')}}" class="primary">sekarang!</a></h5>
+                <h5>Yuk cari menu pilihan kamu <a href="{{ route('customer.menu') }}" class="primary">sekarang!</a></h5>
             </div>
         @else
             <form action="{{ route('customer.orderMenu') }}" method="POST">
@@ -29,7 +29,8 @@
                                 <div class="flex flex-between align-center w100">
                                     <div class="w100">
                                         <h3 class="title">{{ $i->menu->nama_menu }}</h3>
-                                        <p class="text-small">{{ $i->menu->kategori->nama_kategori }}</p>
+                                        <p class="badge-sm">{{ $i->menu->kategori->nama_kategori }}</p>
+                                        <h3 class="mt15">Harga {{ 'Rp. ' . number_format($i->menu->harga, 0, ',', '.') }}</h3>
 
                             </a>
                             <div class="flex flex-end w100">
@@ -50,7 +51,7 @@
         </div>
     @else
         <div class="bottom-button">
-            <button type="submit" class="btn-primary w100">Order</button>
+            <button type="submit" class="btn-primary w100" onclick="loading()">Order</button>
         </div>
     @endif
     </form>

@@ -11,7 +11,7 @@ use App\Models\Keranjang;
 use App\Models\KeranjangItem;
 use App\Models\Order;
 use App\Models\OrderItem;
-
+use App\Models\Rating;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -60,16 +60,18 @@ class CustomerController extends Controller
         $this->customer();
 
 
-        $menu = Menu::latest()->get();
+        $menu = Menu::withAvg('rating', 'nilai')->withCount('rating')->get();
+        // $menu = Menu::latest()->get();
+
         return view('customer.dashboard', compact('menu'));
     }
 
     public function detailMenu($id)
     {
         $this->customer();
-        $menu = Menu::findOrFail($id);
+        $menu = Menu::where('id', $id)->withAvg('rating', 'nilai')->withCount('rating')->first();
 
-        $rekomendasi = Menu::inRandomOrder()->limit(20)->get();
+        $rekomendasi = Menu::withAvg('rating', 'nilai')->withCount('rating')->inRandomOrder()->limit(20)->get();
 
         return view('customer.menus.detailMenu', compact('menu', 'rekomendasi'));
 
@@ -102,8 +104,9 @@ class CustomerController extends Controller
     public function menu()
     {
         $this->customer();
-        $menu = Menu::latest()->get();
+        // $menu = Menu::latest()->get();
         // $menuId = Hashids::encode($menu->id);
+        $menu = Menu::withAvg('rating', 'nilai')->withCount('rating')->latest()->get();
 
         return view('customer.menus.menu', compact('menu'));
     }
@@ -120,7 +123,7 @@ class CustomerController extends Controller
             $result = Menu::where('nama_menu', 'like', '%' . "$request->search" . '%');
         }
 
-        $menus = $result->latest()->get();
+        $menus = $result->withAvg('rating', 'nilai')->withCount('rating')->get();
 
         return view('customer.menus.result', compact(
             'search',
@@ -186,8 +189,9 @@ class CustomerController extends Controller
 
         $mejaId = Auth::guard('meja')->id();
         $orders = Order::where('meja_id', $mejaId)->with('items.menu')->latest()->get();
+        $total_bayar = Order::where('meja_id', $mejaId)->sum('total_harga');
 
-        return view('customer.fitur.order', compact('orders'));
+        return view('customer.fitur.order', compact('orders', 'total_bayar'));
     }
 
 
@@ -243,5 +247,55 @@ class CustomerController extends Controller
 
 
         return redirect()->route('customer.orders');
+    }
+
+
+
+    public function ulasan($id)
+    {
+        $this->customer();
+
+        // $menu = Menu::findOrFail($id);
+        $menu = Menu::where('id', $id)->withAvg('rating', 'nilai')->withCount('rating')->first();
+        $ulasan = Rating::where('menu_id', $id)->latest()->get();
+
+        return view('customer.menus.ulasan', compact('menu', 'ulasan'));
+    }
+
+    public function tambahUlasan(Request $request)
+    {
+        $this->customer();
+
+        $request->validate([
+            'nilai' => 'required|integer|min:1|max:5',
+            'ulasan' => 'nullable|string|max:255'
+        ]);
+
+        $mejaId = $request->meja_id;
+        $menuId = $request->menu_id;
+
+        $punyaOrder = Order::where('meja_id', $mejaId)->where('status', 'ordered')->exists();
+
+        if(!$punyaOrder)
+        {
+            return back();
+        }
+
+        // $sudahRating = Rating::where('menu_id', $menuId)->where('meja_id', $mejaId)->exists();
+
+        // if($sudahRating)
+        // {
+        //     return back();
+        // }
+
+        Rating::create([
+            'menu_id' => $menuId,
+            'meja_id' => $mejaId,
+            'username' => Auth::guard('meja')->user()->username,
+            'nilai' => $request->nilai,
+            'ulasan' => $request->ulasan
+        ]);
+
+        return redirect()->back();
     }
 }

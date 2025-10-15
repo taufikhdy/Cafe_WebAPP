@@ -32,7 +32,8 @@
                         @csrf
                         <div class="flex align-center gap15">
                             <input type="text" name="nama_kategori" id="" placeholder="Nama Kategori" required>
-                            <input type="submit" name="" id="" class="btn-primary" value="Tambah">
+                            <input type="submit" name="" id="" class="btn-primary" value="Tambah"
+                                onclick="loading()">
                         </div>
                     </form>
                 </div>
@@ -49,12 +50,12 @@
                     <form action="{{ route('admin.tambahMenu') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="flex align-center gap15" style="margin: 10px 0px;">
+                        <div class="flex align-center gap15 mb10">
                             <input type="text" name="nama_menu" id="" placeholder="Nama Menu" required>
                             <input type="number" name="harga" id="" placeholder="Harga Menu" required>
                         </div>
 
-                        <div class="flex align-center gap15 flex-wrap" style="margin: 10px 0px;">
+                        <div class="flex align-center gap15 flex-wrap mb10">
                             <select name="status_stok" id="" class="btn-blue" required>
                                 <option value="">Status Stok</option>
                                 <option value="tersedia">Tersedia</option>
@@ -75,7 +76,7 @@
                         <textarea name="deskripsi" id="" cols="" rows="" class="textarea1"
                             placeholder="Deskripsi menu, contoh:Kopi susu dengan krim yang lembut"></textarea>
 
-                        <input type="submit" class="btn-primary" value="Tambah">
+                        <input type="submit" class="btn-primary" value="Tambah" onclick="loading()">
                     </form>
                 </div>
             </div>
@@ -86,10 +87,10 @@
                 <div class="element-title">
                     <h3>Tabel Menu</h3>
                 </div>
-                <div class="flex align-center gap10">
+                {{-- <div class="flex align-center gap10">
                     <button>Terlaris</button>
                     <button>Terbaru</button>
-                </div>
+                </div> --}}
             </div>
 
             <div class="table-container">
@@ -106,8 +107,10 @@
                             <th>Gambar Menu</th>
                             <th>Nama Menu</th>
                             <th>Harga</th>
+                            <th>Deskripsi</th>
                             <th>Status Stok</th>
                             <th>Penjualan</th>
+                            <th>Ulasan</th>
                             <th>Aksi</th>
                         </tr>
 
@@ -118,35 +121,60 @@
                         @foreach ($menus as $menu)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td class="tape"><img src="{{ asset('storage/' . $menu->foto) }}"
-                                        alt="{{ $menu->nama_menu }}"></td>
-                                <td>{{ $menu->nama_menu }}</td>
-                                <td>{{ 'Rp. ' . number_format($menu->harga, 0, ',', '.') }}</td>
+                                <form action="{{ route('admin.editMenu') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <td class="tape">
+                                        <label for="edit-foto{{$menu->id}}"><img src="{{ asset('storage/' . $menu->foto) }}"
+                                                alt="{{ $menu->nama_menu }}"></label>
+                                        <input type="file" name="foto" id="edit-foto{{$menu->id}}" class="edit-input file" disabled>
+                                    </td>
+                                    <td><input type="text" name="nama_menu" class="edit-input w-max"
+                                            value="{{ $menu->nama_menu }}" disabled></td>
+                                    <td>
+                                        <div class="flex align-center gap10">Rp. <input type="text" name="harga"
+                                                value="{{ $menu->harga }}" class="edit-input w-max" disabled></div>
+                                        <input type="hidden" name="menu_id" id="" value="{{ $menu->id }}">
+                                        <button type="submit" class="hidden"
+                                            id="submitEdit{{ $menu->id }}">Edit</button>
+                                    </td>
+
+                                    <td>
+                                        <textarea name="deskripsi" id="" cols="" rows="" class="edit-input w-max textarea-edit"
+                                            disabled>{{ $menu->deskripsi }}</textarea>
+                                    </td>
+
+                                </form>
+
                                 <td>
 
                                     <form action="{{ route('admin.menu.status') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="menu_id" value="{{ $menu->id }}">
                                         <select name="status_stok" class="btn-blue option">
-                                            <option value="{{ $menu->status_stok }}">{{ $menu->status_stok }}</option>
+                                            <option value="{{ $menu->status_stok }}">{{ $menu->status_stok }}
+                                            </option>
                                             <option value="tersedia">Tersedia</option>
                                             <option value="tidak_tersedia">Tidak Tersedia</option>
                                         </select>
 
-                                        <button type="submit" class="btn-blue check-button option-btn"><i
-                                                class="ri-xl ri-check-fill white"></i></button>
+                                        <button type="submit" class="btn-blue check-button option-btn"
+                                            onclick="loading()"><i class="ri-xl ri-check-fill white"></i></button>
                                     </form>
 
                                 </td>
-                                <td>{{$menu->penjualan}} Terjual</td>
+                                <td>{{ $menu->penjualan }} Terjual</td>
+                                <td><a href="{{ route('admin.ulasan', $menu->id) }}" class="link">lihat ulasan</a></td>
                                 <td>
                                     <div class="flex align-center flex-center gap10">
-                                        <button class="btn-yellow">Edit</button>
+                                        <button class="btn-yellow editForm">Edit</button>
+                                        <label for="submitEdit{{ $menu->id }}" class="btn-blue editConfirm"
+                                            style="display: none;" onclick="loading()"><i
+                                                class="ri-xl ri-check-fill white"></i></label>
                                         <form action="{{ route('admin.hapusMenu', $menu->id) }}" method="post"
                                             onclick="return confirm('Yakin ingin menghapus menu ini?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn-red">hapus</button>
+                                            <button type="submit" class="btn-red" onclick="loading()">hapus</button>
                                         </form>
                                     </div>
                                 </td>

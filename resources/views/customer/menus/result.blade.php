@@ -36,10 +36,11 @@
                         <div class="flex flex-between align-center w100">
                             <div class="">
                                 <h3 class="title">{{ $m->nama_menu }}</h3>
-                                <p class="text-small">{{ $m->kategori->nama_kategori }}</p>
+                                <p class="badge-sm">{{ $m->kategori->nama_kategori }}</p>
                             </div>
 
-                            <h3 class="text-nowrap"><i class="ri-star-fill text-medium star"></i> 4.5</h3>
+                            <h3 class="text-nowrap"><i class="ri-star-fill text-medium star"></i>
+                                {{ number_format($m->rating_avg_nilai, 1) }}</h3>
                         </div>
                     </a>
                 @endforeach

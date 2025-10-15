@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Jam;
 use App\Models\Meja;
+use App\Models\Keranjang;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,6 +24,11 @@ class AuthCustomerController extends Controller
 {
     //
 
+    public function wrongHours()
+    {
+        return view('components.wrongHours');
+    }
+
     public function wrongway()
     {
         return view('components.wrongway');
@@ -34,6 +41,18 @@ class AuthCustomerController extends Controller
 
     public function loginByQr(Request $request, $hash)
     {
+        $jam = Jam::where('hari', now()->format('l'))->first();
+
+        if ($jam && $jam->status === 1) {
+            $sekarang = now()->format('H:i:s');
+
+            if ($sekarang < $jam->jam_buka || $sekarang > $jam->jam_tutup) {
+                return redirect()->route('wrongHours');
+            }
+        } elseif ($jam->status === 0) {
+            return redirect()->route('wrongHours');
+        }
+
         $id = Hashids::connection('meja')->decode($hash)[0] ?? null;
 
         if (!$id) {
@@ -45,6 +64,7 @@ class AuthCustomerController extends Controller
         if (!$meja) {
             return view('components.wrongway');
         }
+
 
 
         $request->session()->regenerate();
@@ -82,7 +102,11 @@ class AuthCustomerController extends Controller
     public function logout(Request $request): RedirectResponse
     {
         $id = $request->id_user;
+
         $meja = meja::findOrFail($id);
+
+        Keranjang::where('meja_id', $id)->delete();
+
         $meja->update([
             'username' => null,
             'status' => 'kosong'

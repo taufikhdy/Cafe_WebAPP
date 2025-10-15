@@ -13,7 +13,8 @@
         <div class="searchbox2">
             <form action="{{ route('customer.cariMenu') }}" method="get">
                 <div class="flex align-center gap10">
-                    <input type="text" name="search" id="" value="{{ request('search')}}" placeholder="Cari menu">
+                    <input type="text" name="search" id="" value="{{ request('search') }}"
+                        placeholder="Cari menu">
                     <button type="submit" class="btn-primary"><i class="ri-search-line text-white"></i> Cari</button>
                 </div>
             </form>
@@ -35,10 +36,11 @@
                     <div class="flex flex-between align-center w100">
                         <div class="">
                             <h3 class="title">{{ $m->nama_menu }}</h3>
-                            <p class="text-small">{{ $m->kategori->nama_kategori }}</p>
+                            <p class="badge-sm">{{ $m->kategori->nama_kategori }}</p>
                         </div>
 
-                        <h3 class="text-nowrap"><i class="ri-star-fill text-medium star"></i> 4.5</h3>
+                        <h3 class="text-nowrap"><i class="ri-star-fill text-medium star"></i>
+                            {{ number_format($m->rating_avg_nilai, 1) }}</h3>
                     </div>
                 </a>
             @endforeach

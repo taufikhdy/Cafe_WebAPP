@@ -19,7 +19,7 @@
                 </div>
                 <div class="long-box">
                     <h5 class="box-title">Penjualan Tahunan</h5>
-                    <h2 class="box-number">Rp.150.000,000</h2>
+                    <h2 class="box-number"><span id="pemasukan_tahunan"></span></h2>
                 </div>
             </div>
         </div>
@@ -111,6 +111,7 @@
                         $('#transaksi').text(data.transaksi);
                         $('#pemasukan').text("Rp. " + Number(data.pemasukan).toLocaleString('id-ID'));
                         $('#pemasukan_bulanan').text("Rp. " + Number(data.pemasukan).toLocaleString('id-ID'));
+                        // $('#pemasukan_tahunan').text("Rp. " + Number(data.pemasukan).toLocaleString('id-ID'));
                     },
                     error: function(xhr) {
                         alert("Gagal memuat report");

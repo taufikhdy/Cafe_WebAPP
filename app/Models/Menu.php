@@ -41,4 +41,9 @@ class Menu extends Authenticatable
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function rating()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

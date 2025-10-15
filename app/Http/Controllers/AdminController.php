@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jam;
 use App\Models\Kategori;
 use App\Models\Menu;
+use Illuminate\Support\Facades\Storage;
+
+use App\Models\Rating;
 use App\Models\Roles;
 use App\Models\User;
 use App\Models\Meja;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+
+// Export Excel
+use App\Exports\TransaksiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -56,13 +64,16 @@ class AdminController extends Controller
             'meja' => Meja::count(),
             'transaksi' => Transaksi::count(),
             'pemasukan' => Transaksi::sum('total_bayar'),
-            'pemasukan_bulanan' => Transaksi::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('total_bayar')
+            'pemasukan_bulanan' => Transaksi::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('total_bayar'),
+            // 'pemasukan_tahunan' => Transaksi::WhereYear('created_at', now()->Year)->sum('total_bayar')
         ]);
     }
 
 
     public function transaksi()
     {
+        $this->admin();
+
         $transaksi = Transaksi::where('tanggal', today())->count();
         $transaksiAll = Transaksi::get()->count();
 
@@ -72,6 +83,13 @@ class AdminController extends Controller
         $pemasukan_bulanan = Transaksi::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('total_bayar');
 
         return view('admin.dataTransaksi', compact('transaksi', 'data', 'pemasukan', 'pemasukan_bulanan', 'transaksiAll'));
+    }
+
+    public function exportTransaksi()
+    {
+        $this->admin();
+
+        return Excel::download(new TransaksiExport, 'OHAYOY_DATA_TRANSAKSI.xlsx');
     }
 
 
@@ -119,7 +137,7 @@ class AdminController extends Controller
             'nama_menu' => 'required|string',
             'harga' => 'required|integer',
             'deskripsi' => 'nullable|string',
-            'stok' => 'nullable|integer',
+            // 'stok' => 'nullable|integer',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'kategori_id' => 'required|exists:kategori,id'
         ]);
@@ -145,6 +163,69 @@ class AdminController extends Controller
         $this->admin();
         Menu::findOrFail($id)->delete();
         return redirect()->route('admin.menu');
+    }
+
+
+    public function editMenu(Request $request)
+    {
+        $this->admin();
+
+        $request->validate([
+            'menu_id' => 'string|required',
+            'foto' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+            'nama_menu' => 'string|required',
+            'harga' => 'integer|required',
+            'deskripsi' => 'string|required'
+        ]);
+
+
+        $menu = Menu::where('id', $request->menu_id)->first();
+
+        if($request->hasFile('foto')){
+            if($menu->foto && Storage::exists($menu->foto)){
+                Storage::delete($menu->foto);
+            };
+        }
+
+        $path = $request->file('foto')->store('menu', 'public');
+
+        $menu->foto = $path;
+        $menu->nama_menu = $request->nama_menu;
+        $menu->harga = $request->harga;
+        $menu->deskripsi = $request->deskripsi;
+        $menu->save();
+
+        return redirect()->route('admin.menu');
+    }
+
+
+    public function ulasan($id)
+    {
+        $this->admin();
+
+        $menu = Menu::where('id', $id)->withAvg('rating', 'nilai')->withCount('rating')->first();
+        $ulasan = Rating::where('menu_id', $id)->latest()->get();
+
+        // logika bintang
+
+        return view('admin.rating', compact('menu', 'ulasan'));
+    }
+
+    public function editKategori(Request $request)
+    {
+        $this->admin();
+
+        $request->validate([
+            'nama_kategori' => 'string|required'
+        ]);
+
+
+        $kategori = Kategori::where('id', $request->kategori_id)->first();
+
+        $kategori->nama_kategori = $request->nama_kategori;
+        $kategori->save();
+
+        return redirect()->route('admin.kategoriMenu');
     }
 
     public function menuStatus(Request $request)
@@ -292,6 +373,37 @@ class AdminController extends Controller
         Meja::findOrFail($id)->delete();
 
         return redirect()->route('admin.meja');
+    }
+
+
+
+    public function jam()
+    {
+        $this->admin();
+
+        $jams = Jam::all();
+
+        return view('admin.jam_operasional', compact('jams'));
+    }
+
+    public function editJam(Request $request)
+    {
+        $this->admin();
+
+        // $request->validate([
+        //     'jam_buka' => 'required',
+        //     'jam_tutup' => 'required',
+        //     // 'status' => 'required|boolean'
+        // ]);
+
+        $jam = Jam::where('id', $request->jam_id)->first();
+
+        $jam->jam_buka = $request->jam_buka;
+        $jam->jam_tutup = $request->jam_tutup;
+        $jam->status = $request->status;
+        $jam->save();
+
+        return redirect()->route('admin.jam');
     }
 
 

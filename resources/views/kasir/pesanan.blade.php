@@ -127,7 +127,7 @@
                         <tr>
                             <td class="text-left text-wrap">${item.menu.nama_menu}</td>
                             <td>${item.jumlah}</td>
-                            <td>${item.menu.harga}</td>
+                            <td>Rp. ${Number(item.menu.harga).toLocaleString('id-ID')}</td>
                         </tr>`;
                             });
 

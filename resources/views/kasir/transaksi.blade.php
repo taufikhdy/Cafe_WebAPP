@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="box-s">
-                    <h5 class="box-title">Pemasukan Hari ini</h5>
+                    <h5 class="box-title">Transaksi Hari ini</h5>
                     <div class="flex align-bottom gap10">
                         <h2 class="text-bold">{{ $transaksi }}</h2>
                         <div class="text-medium">transaksi</div>
@@ -26,10 +26,10 @@
                 </div>
 
                 <div class="box-s">
-                    <h5 class="box-title">Transaksi Bulan ini</h5>
+                    <h5 class="box-title">Pemasukan Bulan ini</h5>
                     <div class="flex align-bottom gap10">
                         <h2 class="text-bold">{{ 'Rp. ' . number_format($pemasukan_bulanan, 0, ',', '.') }}</h2>
-                        <div class="text-medium">transaksi</div>
+                        {{-- <div class="text-medium">transaksi</div> --}}
                     </div>
                 </div>
             </div>

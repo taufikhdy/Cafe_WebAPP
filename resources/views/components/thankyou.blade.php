@@ -84,7 +84,7 @@
         <div class="text-center">
             <h1>\(@^0^@)/</h1>
             <br>
-            <h3>Hi, ga kerasa nih udah beres aja makannya,</h3>
+            <h3>Hi, ga kerasa nih udah selesai aja makannya,</h3>
             <br>
             {{-- <h4>gimana udah kenyang?!</h4> --}}
             <p>makasi yaa udah makan disini, semoga jadi pengalaman terbaik buat kamu!</p>

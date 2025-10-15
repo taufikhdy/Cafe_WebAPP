@@ -55,7 +55,7 @@
     color: var(--neutral-20);
 }
 
-.object-fit{
+.object-fit {
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -70,8 +70,13 @@
     z-index: 1;
 }
 
-.container img.object-fit{
-    filter: brightness(50%) grayscale(100%);
+.container img.object-fit {
+    filter: brightness(40%) grayscale(100%);
+}
+
+.container video.object-fit {
+    filter: brightness(30%) grayscale(100%);
+    transform: scale(1.2);
 }
 
 .container .form {
@@ -84,7 +89,7 @@
     right: 0;
 }
 
-.formcs{
+.formcs {
     position: absolute;
     z-index: 99;
     height: 100%;
@@ -94,11 +99,11 @@
     left: 0;
 }
 
-.container h1{
+.container h1 {
     padding: 10px 0px;
 }
 
-.text-small{
+.text-small {
     font-size: small;
 }
 
@@ -143,8 +148,12 @@ input:focus:not(input[type='submit']) {
     border: 2px solid var(--primary);
 }
 
-input:focus~.show{
+input:focus~.show i {
     color: var(--primary);
+}
+
+.password .show>i {
+    color: var(--neutral-40);
 }
 
 .password {
@@ -164,7 +173,6 @@ input:focus~.show{
     align-items: center;
     font-size: larger;
     /* color: var(--primary); */
-    color: var(--neutral-20);
     cursor: pointer;
 }
 
@@ -174,14 +182,14 @@ input:focus~.show{
     } */
 
     .container .form,
-    .container .formcs{
+    .container .formcs {
         width: 100%;
         height: fit-content;
         bottom: 0;
         top: auto;
     }
 
-    .input{
+    .input {
         padding: 10% 10% 20%;
     }
 

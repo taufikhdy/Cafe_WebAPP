@@ -7,8 +7,9 @@
             class="{{ Request::is('admin/dataTransaksi*') ? 'active' : '' }}">Data Transaksi</a>
         <a href="{{ route('admin.menu') }}" class="{{ Request::is('admin/menu*') ? 'active' : '' }}">Menu</a>
         <a href="{{ route('admin.kategoriMenu') }}"
-            class="{{ Request::is('admin/kategori-menu*') ? 'active' : '' }}">Kategori</a>
+            class="{{ Request::is('admin/kategori_menu*') ? 'active' : '' }}">Kategori</a>
         <a href="{{ route('admin.meja') }}" class="{{ Request::is('admin/meja*') ? 'active' : '' }}">Meja</a>
+        <a href="{{ route('admin.jam') }}" class="{{ Request::is('admin/jam*') ? 'active' : '' }}">Operasional</a>
         <a href="{{ route('admin.pengguna') }}"
             class="{{ Request::is('admin/pengguna*') ? 'active' : '' }}">Pengguna</a>
 

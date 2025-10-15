@@ -6,7 +6,7 @@
 
 
     <div class="back-link text-medium">
-        <h4><a href="{{ url()->previous() }}"><i class="ri-lg ri-arrow-left-long-line"></i> detail menu</a></h4>
+        <h4><a href="{{ route('customer.menu') }}"><i class="ri-lg ri-arrow-left-long-line"></i> detail menu</a></h4>
     </div>
     <div class="detail-menu">
 
@@ -15,7 +15,7 @@
 
             <div class="flex flex-around fd-column menu-info">
                 <h2>{{ $menu->nama_menu }}</h2>
-                <p>{{ $menu->kategori->nama_kategori }}</p>
+                <p class="badge-sm mt10">{{ $menu->kategori->nama_kategori }}</p>
                 <br>
                 <div class="flex gap30 align-center w100">
                     <div class="">
@@ -26,7 +26,7 @@
                     @if ($menu->status_stok === 'tidak_tersedia')
                         <p class="btn-red-soft">{{ $menu->status_stok }}</p>
                     @elseif ($menu->status_stok === 'tersedia')
-                        <p class="btn-primary-soft">{{ $menu->status_stok }}</p>
+                        <p class="btn-green-soft">{{ $menu->status_stok }}</p>
                     @endif
                 </div>
             </div>
@@ -35,13 +35,12 @@
 
         <div class="detail-badge">
             <div class="badge text-center">
-                <h3><i class="ri-star-fill text-medium star"></i> 4.5</h3>
-                <a href="" class="badge-link">Lihat Ulasan</a>
+                <h3><i class="ri-star-fill text-medium star"></i> {{ number_format($menu->rating_avg_nilai, 1) }}</h3>
+                <a href="{{ route('customer.ulasan', $menu->id) }}" class="badge-link">Lihat Ulasan</a>
             </div>
         </div>
 
         @if ($menu->status_stok === 'tidak_tersedia')
-
         @elseif ($menu->status_stok === 'tersedia')
             <div class="menu-choice">
                 <form action="{{ route('customer.tambahMenu') }}" method="POST">
@@ -50,9 +49,10 @@
                     <div class="flex align-center gap10 w100">
                         <input type="hidden" name="meja_id" id="" value="{{ Auth::guard('meja')->id() }}">
                         <input type="hidden" name="menu_id" id="" value="{{ $menu->id }}">
-                        <input type="number" name="jumlah" id="" placeholder="Jumlah Pesan" value="">
+                        <input type="number" name="jumlah" id="" placeholder="Jumlah Pesan" value=""
+                            required>
 
-                        <button type="submit" class="btn-primary w100">
+                        <button type="submit" class="btn-primary w100" onclick="loading()">
                             Tambah
                         </button>
                     </div>
@@ -86,17 +86,18 @@
                 <div class="flex flex-between align-center w100">
                     <div class="">
                         <h3 class="title">{{ $m->nama_menu }}</h3>
-                        <p class="text-small">{{ $m->kategori->nama_kategori }}</p>
+                        <p class="badge-sm">{{ $m->kategori->nama_kategori }}</p>
                     </div>
 
-                    <h3 class="text-nowrap"><i class="ri-star-fill text-medium star"></i> 4.5</h3>
+                    <h3 class="text-nowrap"><i class="ri-star-fill text-medium star"></i>
+                        {{ number_format($m->rating_avg_nilai, 1) }}</h3>
                 </div>
             </a>
         @endforeach
 
     </div>
 
-    <div class="title-box w100 text-center" style="margin-bottom: 20%;">
+    <div class="title-box w100 text-center mb40">
         <a href="{{ route('customer.menu') }}" class="btn-primary-soft">Lihat lebih banyak</a>
     </div>
 

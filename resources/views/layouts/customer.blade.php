@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <meta name="scroll-restoration" content="manual"> --}}
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
     <title>@yield('title')</title>
 
+    <link rel="stylesheet" href="{{ asset('css/animation.css') }}">
     <link rel="stylesheet" href="{{ asset('css/customer.css?8++') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card.css') }}">
@@ -17,6 +18,9 @@
 </head>
 
 <body>
+    <span class="loading" id="loader">
+        <div class="circle"></div>
+    </span>
 
 
     @include('components.sidebar')
@@ -29,7 +33,7 @@
 
 
     {{-- JAVASCRIPT --}}
-    <script src="{{ asset('js/javascript.js?v4++') }}"></script>
+    <script src="{{ asset('js/javascript.js?v7++') }}"></script>
     <script src="{{ asset('js/chart.umd.min.js') }}"></script>
 </body>
 

@@ -31,34 +31,34 @@ a {
     text-decoration: none;
 }
 
-a.primary{
+a.primary {
     color: var(--primary);
 }
 
-a.off{
+a.off {
     display: none;
 }
 
-a.on{
+a.on {
     display: inline;
 }
 
-.pending{
+.pending {
     display: inline-block;
-    padding: 8px;
+    padding: 4px 6px;
     background-color: hsla(46, 100%, 50%, 0.4);
-    border: 2px solid hsla(46, 100%, 50%);
-    border-radius: 5px;
-    font-weight: ;
+    border: 1px solid hsla(46, 100%, 50%);
+    border-radius: 15px;
+    font-weight: 500;
 }
 
-.ordered{
+.ordered {
     display: inline-block;
-    padding: 8px;
+    padding: 4px 6px;
     background-color: hsla(218, 95%, 80%, 0.4);
-    border: 2px solid hsla(218, 95%, 80%);
-    border-radius: 5px;
-    font-weight: ;
+    border: 1px solid hsla(218, 95%, 80%);
+    border-radius: 15px;
+    font-weight: 500;
 }
 
 .box-link {
@@ -109,6 +109,27 @@ a.on{
 .top-navbar .logo {
     padding: 20px 0px;
     margin-right: 20px;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+}
+
+.bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    z-index: 98;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    /* width: 100%; */
+    padding: 15px 40px;
+    background-color: var(--neutral-100);
+    border: 1px solid var(--neutral-90);
 }
 
 .logout {
@@ -200,6 +221,46 @@ footer {
     gap: 30px;
 }
 
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt15 {
+    margin-top: 15px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mb10{
+    margin-bottom: 10px;
+}
+
+.mb15{
+    margin-bottom: 15px;
+}
+
+.mb20{
+    margin-bottom: 20px;
+}
+
+.mb25{
+    margin-bottom: 25px;
+}
+
+.mb30{
+    margin-bottom: 30px;
+}
+
+.mb35{
+    margin-bottom: 35px;
+}
+
+.mb40{
+    margin-bottom: 40px;
+}
+
 .text-large {
     font-size: xx-large;
 }
@@ -258,6 +319,10 @@ footer {
 
 .w100 {
     width: 100%;
+}
+
+.wmax{
+    width: max-content;
 }
 
 .sidebar {
@@ -345,6 +410,18 @@ input[type='submit']:hover{
     text-wrap: nowrap;
 }
 
+.btn-green-soft {
+    background-color: hsla(146, 50%, 36%, 0.15);
+    border: 1px solid seagreen;
+    color: seagreen;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    /* cursor: pointer; */
+    text-wrap: nowrap;
+}
+
 .btn-red {
     background-color: crimson;
     border: 1px solid crimson;
@@ -355,6 +432,22 @@ input[type='submit']:hover{
     text-wrap: nowrap;
     font-weight: 600;
     /* width: max-content; */
+}
+
+
+
+.badge-sm {
+    background-color: hsla(146, 50%, 36%, 0.15);
+    border: 1px solid seagreen;
+    color: seagreen;
+    font-weight: 500;
+    font-size: smaller;
+    padding: 4px;
+    border-radius: 20px;
+    padding: 4px;
+    /* cursor: pointer; */
+    text-wrap: nowrap;
+    width: max-content;
 }
 
 .action-btn {
@@ -438,7 +531,7 @@ input[type='submit']:hover{
     border-radius: 10px;
     border: 1px solid var(--neutral-80);
     outline: none;
-    font-size: medium;
+    font-size: ;
 }
 
 .searchbox1 input:focus {
@@ -653,7 +746,7 @@ input[type='submit']:hover{
 }
 
 
-.keranjang{
+.keranjang {
     padding: 0px 0px 80px 0px;
 }
 
@@ -673,7 +766,7 @@ input[type='submit']:hover{
     outline: none;
 }
 
-.bottom-button{
+.bottom-button {
     position: fixed;
     z-index: 80;
     bottom: 0;
@@ -681,12 +774,12 @@ input[type='submit']:hover{
     /* left: 50%;
     transform: translate(-50%, -50%); */
     width: 100%;
-    padding: 15px;
+    padding: 15px 40px 40px;
     background-color: var(--neutral-100);
     border-top: 1px solid var(--neutral-90);
 }
 
-.bottom-button>button{
+.bottom-button>button {
     padding: 10px;
 }
 
@@ -707,6 +800,14 @@ input[type='submit']:hover{
 
     .top-navbar {
         padding: 0px 20px;
+    }
+
+    .bottom-button{
+        padding-bottom: 40px;
+    }
+
+    .bottom-navbar {
+        padding: 15px 40px 40px;
     }
 
     .trigger {
@@ -780,7 +881,7 @@ input[type='submit']:hover{
         bottom: -20%;
     }
 
-    .container-w1{
+    .container-w1 {
         width: 100%;
         row-gap: 15px;
         padding: 20px 20px;
@@ -804,12 +905,12 @@ input[type='submit']:hover{
 
     .menu-box {
         flex-direction: row;
-        align-items: center;
+        align-items: top;
         box-shadow: 0px 0px 15px 0px hsla(0, 0%, 0%, 0);
     }
 
     .menu-box .gambar {
-        height: 120px;
+        height: 100%;
         min-width: 120px;
         width: 120px;
     }
@@ -835,7 +936,7 @@ input[type='submit']:hover{
         flex-direction: column !important;
     }
 
-    .menu-choice{
+    .menu-choice {
         width: 100%;
     }
 }

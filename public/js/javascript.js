@@ -10,6 +10,12 @@ function showPassword() {
     }
 };
 
+
+function loading() {
+    const loading = document.getElementById('loader');
+    loading.style.display = 'flex';
+}
+
 const btnSidebar = document.getElementById('btnside');
 const btnClose = document.getElementById('btn-close');
 const sidebar = document.getElementById('sidebar');
@@ -22,6 +28,10 @@ btnClose.addEventListener('click', () => {
     sidebar.classList.remove('on');
 });
 
+
+
+
+
 const options = document.querySelectorAll('.option');
 
 options.forEach(option => {
@@ -32,6 +42,48 @@ options.forEach(option => {
         btnCheck.classList.add('active');
     });
 });
+
+const editBtn = document.querySelectorAll('.editForm');
+
+editBtn.forEach(editBtn => {
+    editBtn.addEventListener('click', () => {
+        const row = editBtn.closest('tr');
+        const editConfirm = row.querySelector('.editConfirm');
+        if(editConfirm){
+            editConfirm.style.display = 'inline';
+        }
+
+        editBtn.style.display = 'none';
+
+        const nilai = row.querySelectorAll('.edit-input');
+
+        nilai.forEach(input => {
+            input.removeAttribute('disabled');
+        });
+    });
+});
+
+const editKategori = document.querySelectorAll('.editKategori');
+
+editKategori.forEach(editKategori => {
+    editKategori.addEventListener('click', () => {
+        const form = editKategori.closest('form');
+        const editConfirm = form.querySelector('.editConfirm');
+        if(editConfirm){
+            editConfirm.style.display = 'inline';
+        }
+
+        editKategori.style.display = 'none';
+
+        const nilai = form.querySelectorAll('.edit-input');
+
+        nilai.forEach(input => {
+            input.removeAttribute('disabled');
+        });
+    });
+});
+
+
 
 const btnMenu = document.getElementById('menuSwitch');
 const btnCate = document.getElementById('cateSwitch');

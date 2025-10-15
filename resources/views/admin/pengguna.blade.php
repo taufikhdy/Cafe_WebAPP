@@ -51,7 +51,7 @@
                             <input type="file" name="foto" id="foto" class="file">
                         </div>
 
-                        <input type="submit" class="btn-primary" value="Tambah">
+                        <input type="submit" class="btn-primary" value="Tambah" onclick="loading()">
                     </form>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                                     onclick="return confirm('Yakin ingin menghapus akun pengguna ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn-red">hapus</button>
+                                    <button type="submit" class="btn-red" onclick="loading()">hapus</button>
                                 </form>
                             </td>
                         </tr>

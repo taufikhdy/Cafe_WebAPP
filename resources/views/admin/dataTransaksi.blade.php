@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'ohayoy-dashboard')
+@section('title', 'ohayoy-data-transaksi')
 
 @section('content')
 
@@ -41,6 +41,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="flex flex-end align-center w-100">
+            <a href="{{route('admin.exportTransaksi')}}" class="btn-blue mb15"><i class="ri-file-download-line white"></i> Export Data</a>
         </div>
 
         <div class="container-w1">

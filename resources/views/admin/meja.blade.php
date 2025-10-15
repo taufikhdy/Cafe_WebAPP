@@ -27,7 +27,7 @@
                                     <option value="{{ $r->id }}">{{ $r->nama_role }}</option>
                                 @endforeach
                             </select>
-                            <input type="submit" name="" id="" class="btn-primary" value="Tambah">
+                            <input type="submit" name="" id="" class="btn-primary" value="Tambah" onclick="loading()">
                         </div>
                     </form>
                 </div>
@@ -84,7 +84,7 @@
                         @foreach ($qrcode as $data)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $data['meja']->nama_meja }}</td>
+                                <td class="tape">{{ $data['meja']->nama_meja }}</td>
 
                                 @if (!$data['url'])
                                     <td>url kosong</td>
@@ -110,7 +110,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" name="" id="" class="btn-red"
-                                                value="Hapus">
+                                                value="Hapus" onclick="loading()">
                                         </form>
                                     </div>
                                 </td>
